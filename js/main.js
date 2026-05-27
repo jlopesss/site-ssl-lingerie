@@ -1,6 +1,10 @@
 // main.js — SSL Lingerie & Modas
 // Menu mobile, preloader, header dinâmico, cursor customizado.
 
+// Marca presença do JS logo que o script carrega (antes do DOMContentLoaded)
+// Permite que o CSS mostre estado inicial de reveal só quando JS está ativo
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* --------------------------------------------------
