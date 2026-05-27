@@ -1,4 +1,192 @@
 /* ==========================================================
    ANIMATIONS — SSL Lingerie & Modas
-   Keyframes, transições, scroll reveal — preenchido na etapa 2+
+   Keyframes CSS. Transições e interações JS ficam em scroll.js,
+   svg-draw.js e parallax.js. Aqui: só o que roda puramente em CSS.
 ========================================================== */
+
+
+/* --------------------------------------------------------
+   PRELOADER — aparecimento do logo e do nome
+-------------------------------------------------------- */
+@keyframes preloader-aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* --------------------------------------------------------
+   MARQUEE — rolagem lateral infinita
+   A faixa duplica o conteúdo no HTML para loop sem salto.
+-------------------------------------------------------- */
+@keyframes marquee-rolar {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Pausa ao hover (acessibilidade / leitura) */
+.marquee-faixa:hover .marquee-faixa__track {
+  animation-play-state: paused;
+}
+
+
+/* --------------------------------------------------------
+   HERO — pulso sutil na linha de scroll
+-------------------------------------------------------- */
+@keyframes scroll-pulsa {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scaleY(0.7);
+    transform-origin: top;
+  }
+  50% {
+    opacity: 0.6;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+
+/* --------------------------------------------------------
+   SCROLL REVEAL — estado inicial das seções
+   A classe .reveal-visivel é adicionada via IntersectionObserver
+   em js/scroll.js quando o elemento entra na viewport.
+-------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--t-reveal),
+    transform var(--t-reveal);
+}
+
+.reveal.reveal-visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Variante: desloca da esquerda */
+.reveal-esquerda {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition:
+    opacity var(--t-reveal),
+    transform var(--t-reveal);
+}
+
+.reveal-esquerda.reveal-visivel {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Variante: desloca da direita */
+.reveal-direita {
+  opacity: 0;
+  transform: translateX(28px);
+  transition:
+    opacity var(--t-reveal),
+    transform var(--t-reveal);
+}
+
+.reveal-direita.reveal-visivel {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Delays escalonados para grid de cards */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+
+/* --------------------------------------------------------
+   SVG DRAW — linhas douradas que se "desenham"
+   Estado de chegada: stroke-dashoffset vai para 0 via JS.
+   A transição CSS faz o efeito suave.
+   (O JS seta stroke-dasharray e stroke-dashoffset no elemento.)
+-------------------------------------------------------- */
+.svg-linha {
+  transition: stroke-dashoffset 2s var(--ease-in-out);
+}
+
+.svg-linha.desenhada {
+  stroke-dashoffset: 0;
+}
+
+
+/* --------------------------------------------------------
+   CURSOR CUSTOMIZADO (desktop) — círculo dourado
+   Criado via JS em main.js; aqui só o estilo base.
+-------------------------------------------------------- */
+.cursor-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: var(--dourado);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: calc(var(--z-preloader) + 1);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    transform 0.15s var(--ease-out),
+    width 0.25s var(--ease-out),
+    height 0.25s var(--ease-out);
+  will-change: transform;
+}
+
+.cursor-custom.cursor-visivel {
+  opacity: 0.7;
+}
+
+.cursor-custom.cursor-hover {
+  width: 24px;
+  height: 24px;
+  opacity: 0.35;
+  background-color: transparent;
+  border: 1px solid var(--dourado);
+}
+
+
+/* ============================================================
+   PREFERS-REDUCED-MOTION — desabilita tudo para quem prefere
+   (redundante com reset.css, mas garante especificidade aqui)
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-esquerda,
+  .reveal-direita {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .marquee-faixa__track {
+    animation: none;
+  }
+
+  .hero__scroll-linha {
+    animation: none;
+    opacity: 0.4;
+  }
+
+  .preloader__logo,
+  .preloader__marca {
+    animation: none;
+    opacity: 1;
+  }
+
+  .svg-linha {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+}

@@ -1,4 +1,1091 @@
 /* ==========================================================
    STYLE — SSL Lingerie & Modas
-   Estilos das seções — preenchido na etapa 2+
+   Tipografia, paleta e estrutura de todas as seções.
+   Mobile-first. Sem nenhum valor inline — tudo via variables.css
 ========================================================== */
+
+
+/* --------------------------------------------------------
+   BASE GLOBAL
+-------------------------------------------------------- */
+body {
+  font-family: var(--fonte-sans);
+  font-weight: var(--peso-regular);
+  line-height: var(--lh-body);
+  color: var(--texto-principal);
+  background-color: var(--azul-abissal);
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--dourado);
+  color: var(--azul-abissal);
+}
+
+:focus-visible {
+  outline: 2px solid var(--dourado-claro);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+
+/* --------------------------------------------------------
+   UTILITÁRIOS TIPOGRÁFICOS
+   Aplicados via classe nas seções — não sobrescrevem o reset
+-------------------------------------------------------- */
+
+/* Labels em CAIXA ALTA — reutilizado em todas as seções */
+.hero__pretitulo,
+.manifesto__label,
+.filosofia__label,
+.drama__label,
+.marca__label,
+.universo__label,
+.universo__sublabel,
+.contato__label,
+.preloader__marca,
+.header__link,
+.nav-overlay__link,
+.hero__botao,
+.contato__btn-whatsapp,
+.marquee-faixa__texto {
+  font-family: var(--fonte-sans);
+  font-weight: var(--peso-medio);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+/* Família display serifada — todos os títulos */
+.hero__wordmark-ssl,
+.manifesto__frase,
+.filosofia__frase,
+.drama__titulo,
+.marca__titulo,
+.universo__card-titulo,
+.universo__destaque-texto,
+.contato__endereco {
+  font-family: var(--fonte-display);
+  font-weight: var(--peso-light);
+}
+
+/* Script cursiva — uso pontual e com parcimônia */
+.hero__wordmark-script,
+.footer__tagline {
+  font-family: var(--fonte-script);
+}
+
+
+/* --------------------------------------------------------
+   PRELOADER
+-------------------------------------------------------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  background-color: var(--azul-abissal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.7s var(--ease-out), visibility 0.7s;
+}
+
+.preloader.is-oculto {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-6);
+}
+
+.preloader__logo {
+  width: clamp(80px, 18vw, 140px);
+  height: auto;
+  opacity: 0;
+  animation: preloader-aparecer 0.8s var(--ease-out) 0.2s forwards;
+}
+
+.preloader__marca {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+  opacity: 0;
+  animation: preloader-aparecer 0.6s var(--ease-out) 0.7s forwards;
+}
+
+
+/* --------------------------------------------------------
+   HEADER — fixo, transparente; ganha blur ao rolar
+-------------------------------------------------------- */
+.header {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: var(--z-header);
+  height: var(--header-height);
+  transition: background-color var(--t-media), backdrop-filter var(--t-media);
+}
+
+.header.is-scrolled {
+  background-color: rgba(7, 15, 36, 0.88);
+  backdrop-filter: var(--blur-header);
+  -webkit-backdrop-filter: var(--blur-header);
+}
+
+.header__nav {
+  height: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo-img {
+  width: auto;
+  height: 44px;
+}
+
+/* Links — ocultos em mobile, visíveis no desktop */
+.header__links {
+  display: none;
+  gap: var(--sp-8);
+}
+
+.header__link {
+  font-size: var(--txt-label);
+  letter-spacing: var(--ls-nav);
+  color: var(--off-white);
+  opacity: 0.85;
+  position: relative;
+  transition: color var(--t-rapida), opacity var(--t-rapida);
+}
+
+.header__link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--dourado);
+  transition: width var(--t-media);
+}
+
+.header__link:hover {
+  color: var(--dourado-claro);
+  opacity: 1;
+}
+
+.header__link:hover::after,
+.header__link[aria-current="page"]::after {
+  width: 100%;
+}
+
+/* Hamburguer */
+.header__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--sp-2);
+}
+
+.header__hamburger-linha {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background-color: var(--off-white);
+  transform-origin: center;
+  transition: transform var(--t-media), opacity var(--t-rapida);
+}
+
+.header__hamburger[aria-expanded="true"] .header__hamburger-linha:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.header__hamburger[aria-expanded="true"] .header__hamburger-linha:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.header__hamburger[aria-expanded="true"] .header__hamburger-linha:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+
+/* --------------------------------------------------------
+   OVERLAY MENU MOBILE
+-------------------------------------------------------- */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background-color: var(--azul-abissal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--t-media), visibility var(--t-media);
+}
+
+.nav-overlay.is-aberto {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-overlay__fechar {
+  position: absolute;
+  top: var(--sp-6);
+  right: var(--margem-lateral);
+  font-size: var(--sp-6);
+  color: var(--off-white);
+  opacity: 0.7;
+  transition: opacity var(--t-rapida), color var(--t-rapida);
+}
+
+.nav-overlay__fechar:hover {
+  opacity: 1;
+  color: var(--dourado);
+}
+
+.nav-overlay__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.nav-overlay__link {
+  font-family: var(--fonte-display);
+  font-size: var(--txt-h1);
+  font-weight: var(--peso-light);
+  letter-spacing: var(--ls-titulo);
+  color: var(--off-white);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  transition: color var(--t-rapida);
+}
+
+.nav-overlay__link:hover {
+  color: var(--dourado-claro);
+}
+
+
+/* --------------------------------------------------------
+   HERO
+   Fundo: gradiente azul-abissal + SVG de linhas douradas
+-------------------------------------------------------- */
+.hero {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--azul-abissal);
+  background-image: linear-gradient(
+    155deg,
+    var(--azul-abissal) 0%,
+    var(--azul-noite) 55%,
+    var(--azul-medio) 100%
+  );
+  padding-block: calc(var(--header-height) + var(--espaco-section)) var(--espaco-section);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Camada SVG de linhas — gerenciada por svg-draw.js */
+.hero__arte-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__svg-linhas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Cor e opacidade base das linhas — animação via svg-draw.js */
+.svg-linha {
+  stroke: var(--dourado);
+  opacity: 0.35;
+  fill: none;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  padding-inline: var(--margem-lateral);
+  max-width: 100%;
+}
+
+.hero__pretitulo {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+  letter-spacing: 0.38em;
+}
+
+/* Wordmark: SSL em display + lingerie & modas em script */
+.hero__wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.hero__wordmark-ssl {
+  font-size: var(--txt-hero);
+  font-weight: var(--peso-light);
+  letter-spacing: var(--ls-negativo);
+  line-height: var(--lh-tight);
+  color: var(--off-white);
+  text-transform: uppercase;
+}
+
+.hero__wordmark-script {
+  font-size: var(--txt-script-hero);
+  font-weight: 700;
+  line-height: var(--lh-script);
+  color: var(--dourado);
+  letter-spacing: 0.02em;
+  /* Evita que o tamanho enorme da Tangerine transborde no mobile */
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+.hero__subtexto {
+  font-family: var(--fonte-display);
+  font-size: var(--txt-lead);
+  font-style: italic;
+  font-weight: var(--peso-light);
+  line-height: var(--lh-relaxed);
+  color: var(--texto-suave);
+  max-width: 34ch;
+  text-align: center;
+}
+
+/* Botão fantasma */
+.hero__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+  padding: var(--sp-4) var(--sp-10);
+  border: 1px solid rgba(201, 168, 106, 0.45);
+  font-size: var(--txt-label);
+  color: var(--dourado-claro);
+  transition:
+    background-color var(--t-media),
+    border-color var(--t-media),
+    color var(--t-media),
+    box-shadow var(--t-media);
+}
+
+.hero__botao:hover {
+  background-color: rgba(201, 168, 106, 0.1);
+  border-color: var(--dourado-claro);
+  box-shadow: var(--brilho-dourado);
+}
+
+.hero__botao-seta {
+  display: inline-block;
+  transition: transform var(--t-media);
+}
+
+.hero__botao:hover .hero__botao-seta {
+  transform: translateY(5px);
+}
+
+/* Linha de scroll no canto inferior */
+.hero__scroll-indicator {
+  position: absolute;
+  bottom: var(--sp-8);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero__scroll-linha {
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent 0%, var(--dourado) 100%);
+  opacity: 0.5;
+  animation: scroll-pulsa 2s ease-in-out infinite;
+}
+
+
+/* --------------------------------------------------------
+   FAIXA MARQUEE DOURADA
+   Loop CSS infinito
+-------------------------------------------------------- */
+.marquee-faixa {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  background-color: var(--dourado);
+  padding-block: var(--sp-4);
+  white-space: nowrap;
+  /* Evita repinturas ao animar */
+  will-change: transform;
+}
+
+.marquee-faixa__track {
+  display: inline-flex;
+  animation: marquee-rolar 24s linear infinite;
+}
+
+.marquee-faixa__texto {
+  font-size: var(--txt-small);
+  font-weight: var(--peso-semi);
+  letter-spacing: 0.22em;
+  color: var(--azul-abissal);
+  padding-inline: var(--sp-4);
+  /* Sublinhado semântico — sans small caps */
+  font-variant-caps: all-small-caps;
+}
+
+
+/* --------------------------------------------------------
+   MANIFESTO
+   Fundo azul-noite + padrão SVG de corações em baixa opacidade
+-------------------------------------------------------- */
+.manifesto {
+  background-color: var(--azul-noite);
+  padding-block: calc(var(--espaco-section) * 1.4);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.manifesto__arte-fundo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.manifesto__svg-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.06;
+}
+
+.manifesto__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-8);
+}
+
+.manifesto__label {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+}
+
+.manifesto__frase {
+  font-size: var(--txt-manifesto);
+  font-style: italic;
+  line-height: var(--lh-heading);
+  color: var(--off-white);
+}
+
+.manifesto__linha {
+  display: block;
+}
+
+.manifesto__linha--dourado {
+  color: var(--dourado-claro);
+}
+
+.manifesto__filete {
+  width: 48px;
+  height: 1px;
+  background-color: var(--dourado);
+  opacity: 0.5;
+}
+
+
+/* --------------------------------------------------------
+   FILOSOFIA
+   Grid: foto editorial | bloco de texto azul-médio
+-------------------------------------------------------- */
+.filosofia {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 60vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.filosofia__foto {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background-color: var(--azul-profundo); /* placeholder até a foto chegar */
+}
+
+.filosofia__foto-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s var(--ease-out);
+}
+
+.filosofia:hover .filosofia__foto-img {
+  transform: scale(1.04);
+}
+
+.filosofia__bloco-texto {
+  background-color: var(--azul-medio);
+  padding-block: var(--espaco-section);
+  padding-inline: var(--margem-lateral);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-6);
+}
+
+.filosofia__label {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+}
+
+.filosofia__frase {
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
+  line-height: var(--lh-heading);
+  color: var(--off-white);
+}
+
+.filosofia__frase em {
+  color: var(--dourado-claro);
+  font-style: italic;
+}
+
+.filosofia__apoio {
+  font-size: var(--txt-body);
+  font-weight: var(--peso-light);
+  line-height: var(--lh-body);
+  color: var(--texto-suave);
+  max-width: 38ch;
+}
+
+
+/* --------------------------------------------------------
+   DRAMA — preto puro + canvas de partículas
+   A seção mais "tech-artística"
+-------------------------------------------------------- */
+.drama {
+  background-color: var(--preto);
+  padding-block: var(--espaco-section);
+  position: relative;
+  overflow: hidden;
+}
+
+#drama-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.drama__conteudo {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-12);
+  align-items: center;
+}
+
+.drama__texto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.drama__label {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+}
+
+.drama__titulo {
+  font-size: var(--txt-display);
+  line-height: var(--lh-tight);
+  color: var(--off-white);
+}
+
+.drama__titulo-destaque {
+  color: var(--dourado-claro);
+  font-style: italic;
+  display: block;
+}
+
+.drama__subtexto {
+  font-family: var(--fonte-display);
+  font-size: var(--txt-lead);
+  font-style: italic;
+  font-weight: var(--peso-light);
+  line-height: var(--lh-relaxed);
+  color: var(--texto-suave);
+  max-width: 40ch;
+}
+
+.drama__foto {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+  max-width: 360px;
+  margin-inline: auto;
+  background-color: rgba(255, 255, 255, 0.03); /* placeholder sutil */
+}
+
+.drama__foto-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* --------------------------------------------------------
+   SOBRE A MARCA
+-------------------------------------------------------- */
+.marca {
+  background-color: var(--azul-noite);
+  padding-block: var(--espaco-section);
+  position: relative;
+  overflow: hidden;
+}
+
+.marca__content {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.marca__label {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+}
+
+.marca__titulo {
+  font-size: var(--txt-h1);
+  line-height: var(--lh-heading);
+  color: var(--off-white);
+}
+
+.marca__titulo em {
+  color: var(--dourado-claro);
+  font-style: italic;
+}
+
+.marca__texto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.marca__paragrafo {
+  font-size: var(--txt-body);
+  font-weight: var(--peso-light);
+  line-height: var(--lh-body);
+  color: var(--texto-suave);
+}
+
+
+/* --------------------------------------------------------
+   UNIVERSO SSL — grid 2×2 de pilares
+-------------------------------------------------------- */
+.universo {
+  background-color: var(--azul-profundo);
+  padding-block: var(--espaco-section);
+  position: relative;
+  overflow: hidden;
+}
+
+.universo__header {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  margin-bottom: var(--sp-10);
+}
+
+.universo__label {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+}
+
+.universo__grid {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-3);
+}
+
+.universo__card {
+  background-color: var(--azul-medio);
+  border-top: 2px solid var(--dourado);
+  padding: var(--sp-8) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  transition: background-color var(--t-media), box-shadow var(--t-media);
+}
+
+.universo__card:hover {
+  box-shadow: inset 0 0 0 1px rgba(201, 168, 106, 0.2);
+}
+
+.universo__sublabel {
+  font-size: var(--txt-label);
+  color: var(--dourado);
+}
+
+.universo__card-titulo {
+  font-size: var(--txt-h2);
+  line-height: var(--lh-heading);
+  color: var(--off-white);
+}
+
+.universo__card-titulo em {
+  font-style: italic;
+}
+
+.universo__card-frase {
+  font-size: var(--txt-small);
+  font-weight: var(--peso-light);
+  color: var(--texto-suave);
+  line-height: var(--lh-body);
+}
+
+/* Bloco dourado — quebra o ritmo */
+.universo__destaque {
+  background-color: var(--dourado);
+  padding: var(--sp-8) var(--sp-6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.universo__destaque-texto {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: var(--peso-regular);
+  line-height: var(--lh-heading);
+  color: var(--azul-abissal);
+  text-align: center;
+}
+
+
+/* --------------------------------------------------------
+   CONTATO — ÚNICA seção clara (off-white)
+-------------------------------------------------------- */
+.contato {
+  background-color: var(--off-white);
+  color: var(--texto-escuro);
+  padding-block: var(--espaco-section);
+  position: relative;
+  overflow: hidden;
+}
+
+.contato__arte-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.contato__svg-linhas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.svg-linha--contato-1,
+.svg-linha--contato-2,
+.svg-linha--contato-3,
+.svg-linha--contato-4 {
+  stroke: var(--dourado-escuro);
+  opacity: 0.2;
+  fill: none;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+}
+
+.contato__content {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.contato__label {
+  font-size: var(--txt-label);
+  color: var(--dourado-escuro);
+}
+
+/* Endereço em destaque — serifada itálico */
+.contato__endereco {
+  font-family: var(--fonte-display);
+  font-style: italic;
+  font-weight: var(--peso-light);
+  color: var(--azul-abissal);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.contato__rua {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  line-height: var(--lh-tight);
+  display: block;
+}
+
+.contato__complemento {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: var(--azul-medio);
+  display: block;
+}
+
+.contato__convite {
+  font-size: var(--txt-body);
+  font-weight: var(--peso-light);
+  line-height: var(--lh-body);
+  color: var(--azul-profundo);
+  max-width: 44ch;
+}
+
+.contato__acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+/* Botão WhatsApp — azul sólido, texto dourado */
+.contato__btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-5) var(--sp-8);
+  background-color: var(--azul-abissal);
+  font-size: var(--txt-label);
+  font-weight: var(--peso-semi);
+  color: var(--dourado-claro);
+  transition:
+    background-color var(--t-media),
+    box-shadow var(--t-media);
+}
+
+.contato__btn-whatsapp:hover {
+  background-color: var(--azul-noite);
+  box-shadow: var(--sombra-suave);
+}
+
+.contato__btn-icone,
+.contato__link-icone {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Link Instagram */
+.contato__link-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--txt-small);
+  font-weight: var(--peso-medio);
+  letter-spacing: var(--ls-nav);
+  color: var(--azul-profundo);
+  position: relative;
+  transition: color var(--t-rapida);
+}
+
+.contato__link-instagram::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--dourado-escuro);
+  transition: width var(--t-media);
+}
+
+.contato__link-instagram:hover {
+  color: var(--dourado-escuro);
+}
+
+.contato__link-instagram:hover::after {
+  width: 100%;
+}
+
+.contato__telefone {
+  font-size: var(--txt-small);
+  font-weight: var(--peso-light);
+  color: var(--azul-medio);
+  margin-top: calc(var(--sp-2) * -1);
+}
+
+.contato__telefone a {
+  transition: color var(--t-rapida);
+}
+
+.contato__telefone a:hover {
+  color: var(--dourado-escuro);
+}
+
+
+/* --------------------------------------------------------
+   FOOTER
+-------------------------------------------------------- */
+.footer {
+  background-color: var(--azul-abissal);
+  border-top: 1px solid rgba(201, 168, 106, 0.12);
+  padding-block: var(--sp-12);
+}
+
+.footer__content {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: center;
+}
+
+.footer__logo-img {
+  width: auto;
+  height: 56px;
+  opacity: 0.8;
+  transition: opacity var(--t-rapida);
+}
+
+.footer__logo:hover .footer__logo-img {
+  opacity: 1;
+}
+
+.footer__tagline {
+  font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: var(--dourado);
+  letter-spacing: 0.02em;
+  line-height: var(--lh-script);
+}
+
+.footer__copy {
+  font-family: var(--fonte-sans);
+  font-size: var(--txt-label);
+  letter-spacing: var(--ls-label);
+  color: var(--texto-suave);
+  opacity: 0.6;
+}
+
+.footer__instagram {
+  font-family: var(--fonte-sans);
+  font-size: var(--txt-small);
+  letter-spacing: var(--ls-nav);
+  color: var(--dourado);
+  opacity: 0.65;
+  transition: opacity var(--t-rapida);
+}
+
+.footer__instagram:hover {
+  opacity: 1;
+}
+
+
+/* ============================================================
+   RESPONSIVIDADE — breakpoints principais
+   Acima são estilos mobile-first.
+   Abaixo: progressivo para tablet e desktop.
+============================================================ */
+
+/* ≥ 640px — tablet */
+@media (min-width: 640px) {
+  .filosofia {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filosofia__foto {
+    aspect-ratio: auto;
+    min-height: 520px;
+  }
+
+  .universo__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contato__acoes {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* ≥ 1024px — desktop */
+@media (min-width: 1024px) {
+  /* Header desktop: mostrar links, esconder hamburguer */
+  .header__links {
+    display: flex;
+  }
+
+  .header__hamburger {
+    display: none;
+  }
+
+  /* Drama: texto à esquerda, foto à direita */
+  .drama__conteudo {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-16);
+  }
+
+  .drama__foto {
+    max-width: none;
+    margin-inline: 0;
+    aspect-ratio: 2 / 3;
+  }
+}
+
+/* ≥ 1280px — wide */
+@media (min-width: 1280px) {
+  .filosofia__bloco-texto {
+    padding-inline: var(--sp-16);
+  }
+}
