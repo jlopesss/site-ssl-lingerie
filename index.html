@@ -164,12 +164,11 @@
           aria-hidden="true"
           focusable="false"
         >
-          <!-- Curvas geradas e animadas por js/svg-draw.js -->
-          <path class="svg-linha svg-linha--1" d="M0 200 Q360 100 720 300 Q1080 500 1440 200" fill="none" stroke-width="0.8"/>
-          <path class="svg-linha svg-linha--2" d="M0 500 Q400 350 800 500 Q1100 650 1440 400" fill="none" stroke-width="0.6"/>
-          <path class="svg-linha svg-linha--3" d="M200 0 Q300 450 400 900" fill="none" stroke-width="0.5"/>
-          <path class="svg-linha svg-linha--4" d="M1100 0 Q1000 450 900 900" fill="none" stroke-width="0.5"/>
-          <path class="svg-linha svg-linha--5" d="M0 700 Q600 500 1200 750 Q1350 800 1440 700" fill="none" stroke-width="0.7"/>
+          <!-- Curvas horizontais — animadas por js/svg-draw.js -->
+          <path class="svg-linha" d="M-60 160 Q300 60  720 220 Q1140 380 1500 140" fill="none" stroke-width="0.9"/>
+          <path class="svg-linha" d="M-60 420 Q360 280 720 440 Q1080 600 1500 380" fill="none" stroke-width="0.65"/>
+          <path class="svg-linha" d="M-60 640 Q420 500 840 660 Q1180 780 1500 600" fill="none" stroke-width="0.5"/>
+          <path class="svg-linha" d="M-60 820 Q500 700 960 840 Q1240 900 1500 780" fill="none" stroke-width="0.35"/>
         </svg>
       </div>
 
@@ -217,6 +216,16 @@
       class="manifesto"
       aria-labelledby="manifesto-label"
     >
+      <!-- Curvas douradas animadas — disparadas pelo scroll.js -->
+      <div class="manifesto__arte-linhas" data-svg-container aria-hidden="true">
+        <svg class="manifesto__svg-curvas" viewBox="0 0 1440 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <path class="svg-linha" d="M-60 80  Q360 10  720 100 Q1080 190 1500 60"  fill="none" stroke-width="0.7"/>
+          <path class="svg-linha" d="M-60 200 Q400 110 800 220 Q1100 300 1500 160" fill="none" stroke-width="0.5"/>
+          <path class="svg-linha" d="M-60 380 Q360 300 720 400 Q1100 490 1500 340" fill="none" stroke-width="0.6"/>
+          <path class="svg-linha" d="M-60 460 Q480 380 960 470 Q1240 520 1500 430" fill="none" stroke-width="0.35"/>
+        </svg>
+      </div>
+
       <!-- Padrão SVG de fundo — corações e arabescos em baixa opacidade -->
       <div class="manifesto__arte-fundo" aria-hidden="true">
         <img
@@ -266,6 +275,16 @@
       <div class="filosofia__bloco-texto reveal-direita">
         <p class="filosofia__label">A FILOSOFIA</p>
 
+        <!-- Ornamento SVG — filete com diamante central -->
+        <div class="filosofia__ornamento" aria-hidden="true">
+          <svg viewBox="0 0 260 20" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0"   y1="10" x2="110" y2="10" stroke="#c9a86a" stroke-width="0.8"/>
+            <polygon points="130,3 142,10 130,17 118,10" fill="none" stroke="#c9a86a" stroke-width="1"/>
+            <circle cx="130" cy="10" r="2" fill="#c9a86a"/>
+            <line x1="150" y1="10" x2="260" y2="10" stroke="#c9a86a" stroke-width="0.8"/>
+          </svg>
+        </div>
+
         <h2 class="filosofia__frase" id="filosofia-titulo">
           Vestir-se bem começa por <em>dentro.</em>
         </h2>
@@ -288,6 +307,26 @@
       class="drama"
       aria-labelledby="drama-titulo"
     >
+      <!-- Formas geométricas abstratas com rotação lenta — CSS animation -->
+      <div class="drama__arte-geo" aria-hidden="true">
+        <svg class="drama__geo-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Diamante externo -->
+          <polygon class="geo-diamond" points="200,8 392,200 200,392 8,200"/>
+          <!-- Quadrado interno rotacionado -->
+          <rect class="geo-square" x="100" y="100" width="200" height="200" transform="rotate(20 200 200)"/>
+          <!-- Círculo médio -->
+          <circle class="geo-circle" cx="200" cy="200" r="148"/>
+          <!-- Pontos nos vértices do diamante -->
+          <circle class="geo-ponto" cx="200" cy="8"   r="3" opacity="0.7"/>
+          <circle class="geo-ponto" cx="392" cy="200" r="3" opacity="0.7"/>
+          <circle class="geo-ponto" cx="200" cy="392" r="3" opacity="0.7"/>
+          <circle class="geo-ponto" cx="8"   cy="200" r="3" opacity="0.7"/>
+          <!-- Cruz central fina -->
+          <line x1="200" y1="52"  x2="200" y2="348" stroke="#c9a86a" stroke-width="0.3" opacity="0.5"/>
+          <line x1="52"  y1="200" x2="348" y2="200" stroke="#c9a86a" stroke-width="0.3" opacity="0.5"/>
+        </svg>
+      </div>
+
       <!-- Canvas das partículas — gerenciado por js/particles.js -->
       <canvas
         id="drama-canvas"
@@ -335,6 +374,19 @@
     >
       <div class="marca__content reveal">
         <p class="marca__label">A MARCA</p>
+
+        <!-- Ornamento divisor com arabesco -->
+        <div class="marca__ornamento" aria-hidden="true">
+          <svg viewBox="0 0 320 28" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 14 Q80 4 160 14 Q240 24 320 14" fill="none" stroke="#c9a86a" stroke-width="0.9"/>
+            <circle cx="60"  cy="12" r="2"   fill="#c9a86a" opacity="0.5"/>
+            <circle cx="160" cy="14" r="3"   fill="#c9a86a" opacity="0.7"/>
+            <circle cx="260" cy="16" r="2"   fill="#c9a86a" opacity="0.5"/>
+            <!-- Pequenos arabescos nos pontos laterais -->
+            <path d="M54 12 Q57 7 60 12" fill="none" stroke="#c9a86a" stroke-width="0.6"/>
+            <path d="M254 16 Q257 11 260 16" fill="none" stroke="#c9a86a" stroke-width="0.6"/>
+          </svg>
+        </div>
 
         <h2 class="marca__titulo" id="marca-titulo">
           Uma história de<br>
@@ -424,7 +476,7 @@
       aria-labelledby="contato-titulo"
     >
       <!-- Linhas SVG de fundo — gerenciadas por js/svg-draw.js -->
-      <div class="contato__arte-svg" aria-hidden="true">
+      <div class="contato__arte-svg" data-svg-container aria-hidden="true">
         <svg
           class="contato__svg-linhas"
           viewBox="0 0 1440 600"
@@ -506,6 +558,18 @@
   ====================================================== -->
   <footer class="footer" role="contentinfo">
     <div class="footer__content">
+
+      <!-- Ornamento SVG sutil acima do logo -->
+      <div class="footer__ornamento" aria-hidden="true">
+        <svg viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 18 Q50 6 100 18 Q150 30 200 18" fill="none" stroke="#c9a86a" stroke-width="0.8"/>
+          <!-- Coração pequeno central -->
+          <path d="M100 8 C101.4 5 106 5 106 9 C106 13 100 16 100 16 C100 16 94 13 94 9 C94 5 98.6 5 100 8 Z" fill="#c9a86a"/>
+          <!-- Pontos laterais -->
+          <circle cx="42"  cy="16" r="1.5" fill="#c9a86a" opacity="0.6"/>
+          <circle cx="158" cy="20" r="1.5" fill="#c9a86a" opacity="0.6"/>
+        </svg>
+      </div>
 
       <a href="#hero" class="footer__logo" aria-label="SSL Lingerie &amp; Modas — Voltar ao topo">
         <img

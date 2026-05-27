@@ -1,13 +1,11 @@
 // scroll.js — SSL Lingerie & Modas
-// IntersectionObserver: scroll reveal + disparo das linhas SVG da seção Contato.
-// Roda depois de svg-draw.js (ordem garantida pelos <script defer> no HTML).
+// IntersectionObserver: scroll reveal + disparo de linhas SVG.
+// Qualquer elemento com [data-svg-container] dispara desenhar() ao entrar na viewport.
 
 (() => {
 
   /* --------------------------------------------------
      SCROLL REVEAL
-     Adiciona .reveal-visivel quando o elemento entra
-     na viewport. One-shot: para de observar depois.
   -------------------------------------------------- */
   const observarReveal = () => {
     const elementos = document.querySelectorAll(
@@ -21,45 +19,40 @@
         entry.target.classList.add('reveal-visivel');
         observer.unobserve(entry.target);
       });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -48px 0px'  // dispara um pouco antes do borda inferior
-    });
+    }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
 
     elementos.forEach(el => observer.observe(el));
   };
 
 
   /* --------------------------------------------------
-     SVG DRAW — seção Contato
-     Dispara o desenho das linhas quando a seção
-     entra na viewport pela primeira vez.
+     SVG DRAW — genérico
+     Qualquer elemento marcado com [data-svg-container]
+     dispara o desenho do <svg> filho ao entrar na tela.
   -------------------------------------------------- */
-  const observarContatoSvg = () => {
-    const contatoSvg = document.querySelector('.contato__svg-linhas');
-    const contatoSecao = document.getElementById('contato');
-    if (!contatoSvg || !contatoSecao) return;
+  const observarSvgContainers = () => {
+    const containers = document.querySelectorAll('[data-svg-container]');
+    if (!containers.length) return;
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        // Garante que ssl.svgDraw está disponível (carregado antes por ordem dos scripts)
-        window.SSL?.svgDraw?.desenhar(contatoSvg, 300);
+        const svg = entry.target.querySelector('svg');
+        if (svg) window.SSL?.svgDraw?.desenhar(svg, 250);
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.2 });
 
-    observer.observe(contatoSecao);
+    containers.forEach(el => observer.observe(el));
   };
 
 
   /* --------------------------------------------------
-     ACTIVE LINK — destaca o link do header conforme
-     a seção visível (útil quando adicionarmos mais nav)
+     ACTIVE LINK — destaca seção atual no header
   -------------------------------------------------- */
   const observarSecaoAtiva = () => {
-    const secoes  = document.querySelectorAll('section[id]');
-    const links   = document.querySelectorAll('.header__link');
+    const secoes = document.querySelectorAll('section[id]');
+    const links  = document.querySelectorAll('.header__link');
     if (!secoes.length || !links.length) return;
 
     const observer = new IntersectionObserver((entries) => {
@@ -77,9 +70,8 @@
   };
 
 
-  // Inicializa tudo
   observarReveal();
-  observarContatoSvg();
+  observarSvgContainers();
   observarSecaoAtiva();
 
 })();
