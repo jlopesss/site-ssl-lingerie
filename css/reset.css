@@ -1,0 +1,150 @@
+/* ==========================================================
+   RESET — SSL Lingerie & Modas
+   Baseado em Andy Bell's Modern CSS Reset + adições específicas
+   https://piccalil.li/blog/a-modern-css-reset/
+========================================================== */
+
+/* Box-sizing universal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Raiz e rolagem suave */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  hanging-punctuation: first last;
+}
+
+/* Corpo base */
+body {
+  min-height: 100dvh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Mídia substituída */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Herança de fonte para controles */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Quebra de palavra em blocos de texto */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+blockquote {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Remoção de estilos de lista */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Links sem decoração herdada */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Botões sem estilo nativo */
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Endereço sem itálico forçado */
+address {
+  font-style: normal;
+}
+
+/* Blockquote sem margem nativa */
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+/* Tabelas com herança de bordas */
+table {
+  border-collapse: collapse;
+}
+
+/* Evita overflow por imagem ou SVG */
+figure {
+  margin: 0;
+}
+
+/* Foco visível para acessibilidade — será customizado em style.css */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Remove outline quando não é teclado */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Âncoras para pular conteúdo (skip link) */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5em 1em;
+  background: currentColor;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ============================================================
+   PREFERS-REDUCED-MOTION
+   Desabilita animações para quem prefere movimento reduzido
+============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

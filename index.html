@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A arte de vestir o que há de mais íntimo em você. Lingerie e moda com elegância e sofisticação, em Icaraí, Niterói. Visite a SSL Lingerie & Modas.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#070f24">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SSL Lingerie & Modas">
+  <meta property="og:description" content="Lingerie é a moldura e o corpo é a arte que ela abraça.">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SSL Lingerie & Modas">
+  <meta name="twitter:description" content="Lingerie é a moldura e o corpo é a arte que ela abraça.">
+
+  <title>SSL Lingerie & Modas — Lingerie e moda em Niterói</title>
+
+  <!-- Schema.org: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "SSL Lingerie & Modas",
+    "description": "A arte de vestir o que há de mais íntimo em você. Lingerie e moda com elegância e sofisticação.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "R. Gavião Peixoto, 117 — Sobreloja 01",
+      "addressLocality": "Niterói",
+      "addressRegion": "RJ",
+      "postalCode": "",
+      "addressCountry": "BR"
+    },
+    "telephone": "+5521982059599",
+    "sameAs": ["https://instagram.com/ssl.lingerie"]
+  }
+  </script>
+
+  <!-- Preconnect para Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Tangerine:wght@400;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="assets/logo/ssl-logo-dourado.svg">
+
+  <!-- CSS — arquivos separados, jamais inline -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       PRELOADER
+       Monograma SS se "desenha" em dourado, depois fade-out
+  ====================================================== -->
+  <div id="preloader" class="preloader" role="status" aria-label="Carregando SSL Lingerie & Modas">
+    <div class="preloader__inner">
+      <svg
+        class="preloader__monograma"
+        viewBox="0 0 120 80"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <!-- Paths do monograma SS — animados via CSS/js -->
+        <path class="preloader__path" d="M20 20 Q10 10 20 5 Q40 0 40 15 Q40 30 20 30 Q0 30 0 45 Q0 60 20 60 Q40 60 40 50" stroke-width="2" fill="none"/>
+        <path class="preloader__path" d="M70 20 Q60 10 70 5 Q90 0 90 15 Q90 30 70 30 Q50 30 50 45 Q50 60 70 60 Q90 60 90 50" stroke-width="2" fill="none"/>
+        <path class="preloader__coracoes" d="M105 20 C107 15 115 15 115 22 C115 28 105 35 105 35 C105 35 95 28 95 22 C95 15 103 15 105 20 Z" fill="none" stroke-width="1.5"/>
+      </svg>
+      <p class="preloader__marca">SSL Lingerie & Modas</p>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       HEADER — fixo, transparente sobre hero,
+       ganha fundo azul-abissal translúcido ao rolar
+  ====================================================== -->
+  <header id="header" class="header" role="banner">
+    <nav class="header__nav" aria-label="Navegação principal">
+
+      <a href="#hero" class="header__logo" aria-label="SSL Lingerie &amp; Modas — Ir para início">
+        <img
+          src="assets/logo/ssl-logo-dourado.svg"
+          alt="SSL Lingerie & Modas"
+          class="header__logo-img"
+          width="80"
+          height="40"
+        >
+      </a>
+
+      <!-- Menu desktop -->
+      <ul class="header__links" role="list">
+        <li><a href="#hero" class="header__link">HOME</a></li>
+        <li><a href="#marca" class="header__link">MARCA</a></li>
+        <li><a href="#contato" class="header__link">CONTATO</a></li>
+      </ul>
+
+      <!-- Hamburguer mobile -->
+      <button
+        class="header__hamburger"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+        type="button"
+      >
+        <span class="header__hamburger-linha" aria-hidden="true"></span>
+        <span class="header__hamburger-linha" aria-hidden="true"></span>
+        <span class="header__hamburger-linha" aria-hidden="true"></span>
+      </button>
+
+    </nav>
+  </header>
+
+  <!-- Overlay menu mobile — fullscreen azul-abissal -->
+  <div
+    id="nav-overlay"
+    class="nav-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu de navegação"
+    aria-hidden="true"
+  >
+    <button
+      class="nav-overlay__fechar"
+      aria-label="Fechar menu"
+      type="button"
+    >
+      <span aria-hidden="true">✕</span>
+    </button>
+    <nav aria-label="Menu mobile">
+      <ul class="nav-overlay__links" role="list">
+        <li><a href="#hero" class="nav-overlay__link">HOME</a></li>
+        <li><a href="#marca" class="nav-overlay__link">MARCA</a></li>
+        <li><a href="#contato" class="nav-overlay__link">CONTATO</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- =====================================================
+       CONTEÚDO PRINCIPAL
+  ====================================================== -->
+  <main id="main" tabindex="-1">
+
+    <!-- ===================================================
+         HERO
+         Fundo: gradiente azul-abissal + linhas SVG douradas
+         Wordmark: SSL (serifada display) + lingerie & modas (script)
+    ==================================================== -->
+    <section
+      id="hero"
+      class="hero"
+      aria-labelledby="hero-titulo"
+    >
+      <!-- Arte SVG de fundo — linhas douradas que se desenham -->
+      <div class="hero__arte-svg" aria-hidden="true">
+        <svg
+          class="hero__svg-linhas"
+          viewBox="0 0 1440 900"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <!-- Curvas geradas e animadas por js/svg-draw.js -->
+          <path class="svg-linha svg-linha--1" d="M0 200 Q360 100 720 300 Q1080 500 1440 200" fill="none" stroke-width="0.8"/>
+          <path class="svg-linha svg-linha--2" d="M0 500 Q400 350 800 500 Q1100 650 1440 400" fill="none" stroke-width="0.6"/>
+          <path class="svg-linha svg-linha--3" d="M200 0 Q300 450 400 900" fill="none" stroke-width="0.5"/>
+          <path class="svg-linha svg-linha--4" d="M1100 0 Q1000 450 900 900" fill="none" stroke-width="0.5"/>
+          <path class="svg-linha svg-linha--5" d="M0 700 Q600 500 1200 750 Q1350 800 1440 700" fill="none" stroke-width="0.7"/>
+        </svg>
+      </div>
+
+      <div class="hero__content">
+        <p class="hero__pretitulo" aria-label="Estabelecimento em Niterói, RJ">EST. NITERÓI · RJ</p>
+
+        <h1 class="hero__wordmark" id="hero-titulo">
+          <span class="hero__wordmark-ssl">SSL</span>
+          <span class="hero__wordmark-script" aria-label="lingerie e modas">lingerie &amp; modas</span>
+        </h1>
+
+        <p class="hero__subtexto">
+          A arte de vestir o que há de mais íntimo em você.
+        </p>
+
+        <a href="#manifesto" class="hero__botao" aria-label="Explorar o site">
+          <span>EXPLORAR</span>
+          <span class="hero__botao-seta" aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <!-- Indicador de scroll -->
+      <div class="hero__scroll-indicator" aria-hidden="true">
+        <span class="hero__scroll-linha"></span>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         FAIXA DOURADA ROLANTE (MARQUEE)
+         Loop CSS infinito
+    ==================================================== -->
+    <div class="marquee-faixa" aria-hidden="true" role="presentation">
+      <div class="marquee-faixa__track">
+        <span class="marquee-faixa__texto">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
+        <span class="marquee-faixa__texto" aria-hidden="true">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ===================================================
+         MANIFESTO
+         Fundo: azul-noite + padrão de corações/arabescos SVG
+    ==================================================== -->
+    <section
+      id="manifesto"
+      class="manifesto"
+      aria-labelledby="manifesto-label"
+    >
+      <!-- Padrão SVG de fundo — corações e arabescos em baixa opacidade -->
+      <div class="manifesto__arte-fundo" aria-hidden="true">
+        <img
+          src="assets/svg/coracoes.svg"
+          alt=""
+          class="manifesto__svg-bg"
+          loading="lazy"
+          aria-hidden="true"
+        >
+      </div>
+
+      <div class="manifesto__content">
+        <p class="manifesto__label" id="manifesto-label">O MANIFESTO</p>
+
+        <blockquote class="manifesto__frase" cite="#">
+          <p>
+            <span class="manifesto__linha">"Lingerie é a moldura</span><br>
+            <span class="manifesto__linha">e o corpo é a arte</span><br>
+            <em class="manifesto__linha manifesto__linha--dourado">que ela abraça."</em>
+          </p>
+        </blockquote>
+
+        <div class="manifesto__filete" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         FILOSOFIA
+         Grid 2 colunas: foto editorial | bloco de texto
+    ==================================================== -->
+    <section
+      id="filosofia"
+      class="filosofia"
+      aria-labelledby="filosofia-titulo"
+    >
+      <div class="filosofia__foto">
+        <img
+          src="assets/images/filosofia.webp"
+          alt="Detalhes de lingerie da SSL com elegância editorial — tecido delicado e luz suave"
+          class="filosofia__foto-img"
+          loading="lazy"
+          width="600"
+          height="800"
+        >
+      </div>
+
+      <div class="filosofia__bloco-texto">
+        <p class="filosofia__label">A FILOSOFIA</p>
+
+        <h2 class="filosofia__frase" id="filosofia-titulo">
+          Vestir-se bem começa por <em>dentro.</em>
+        </h2>
+
+        <p class="filosofia__apoio">
+          Na SSL, acreditamos que cada peça íntima é um gesto de cuidado consigo mesma.
+          Não vestimos apenas o corpo — vestimos a confiança, o desejo e a forma única
+          de cada mulher habitar a própria pele.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         DRAMA
+         Fundo: preto puro + partículas/pontos dourados conectados (Canvas)
+         A seção mais "tech-artística"
+    ==================================================== -->
+    <section
+      id="drama"
+      class="drama"
+      aria-labelledby="drama-titulo"
+    >
+      <!-- Canvas das partículas — gerenciado por js/particles.js -->
+      <canvas
+        id="drama-canvas"
+        class="drama__canvas"
+        aria-hidden="true"
+        role="presentation"
+      ></canvas>
+
+      <div class="drama__conteudo">
+        <div class="drama__texto">
+          <p class="drama__label">O DETALHE</p>
+
+          <h2 class="drama__titulo" id="drama-titulo">
+            Detalhes que<br>
+            <em class="drama__titulo-destaque">seduzem</em>
+          </h2>
+
+          <p class="drama__subtexto">
+            No encontro entre a renda e a luz, mora tudo aquilo
+            que as palavras não alcançam.
+          </p>
+        </div>
+
+        <div class="drama__foto">
+          <img
+            src="assets/images/drama.webp"
+            alt="Detalhe de peça íntima com iluminação cinematográfica — luz lateral, sombras elegantes"
+            class="drama__foto-img"
+            loading="lazy"
+            width="520"
+            height="720"
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         SOBRE A MARCA
+         História da SSL em 3 parágrafos
+    ==================================================== -->
+    <section
+      id="marca"
+      class="marca"
+      aria-labelledby="marca-titulo"
+    >
+      <div class="marca__content">
+        <p class="marca__label">A MARCA</p>
+
+        <h2 class="marca__titulo" id="marca-titulo">
+          Uma história de<br>
+          <em>elegância e intenção.</em>
+        </h2>
+
+        <div class="marca__texto">
+          <p class="marca__paragrafo">
+            A SSL Lingerie &amp; Modas nasceu em Niterói com um propósito simples e profundo:
+            celebrar a mulher por inteiro — do íntimo ao olhar. Mais do que uma loja, somos
+            um convite à intimidade consigo mesma, ao prazer de se vestir bem e ao cuidado
+            que começa nas camadas mais discretas.
+          </p>
+          <p class="marca__paragrafo">
+            Cada peça é escolhida como quem escolhe palavras: com intenção, sensibilidade
+            e um toque de poesia. Da lingerie que abraça à moda que se mostra, acreditamos
+            que elegância não é sobre ser vista — é sobre se sentir. É sobre o gesto silencioso
+            de se vestir para si.
+          </p>
+          <p class="marca__paragrafo">
+            Aqui, a delicadeza encontra a força, e a sofisticação encontra a verdade de cada
+            corpo. Porque vestir-se bem é uma forma de arte, e cada mulher é a obra que
+            merece a moldura mais bela.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         UNIVERSO SSL
+         Grid 2×2: três pilares + bloco dourado destaque
+    ==================================================== -->
+    <section
+      id="universo"
+      class="universo"
+      aria-labelledby="universo-label"
+    >
+      <header class="universo__header">
+        <p class="universo__label" id="universo-label">O UNIVERSO SSL</p>
+      </header>
+
+      <div class="universo__grid">
+
+        <article class="universo__card" aria-labelledby="pilar-lingerie-titulo">
+          <p class="universo__sublabel">O ÍNTIMO</p>
+          <h3 class="universo__card-titulo" id="pilar-lingerie-titulo">
+            <em>Lingerie</em>
+          </h3>
+          <p class="universo__card-frase">A primeira camada da sua confiança.</p>
+        </article>
+
+        <article class="universo__card" aria-labelledby="pilar-moda-titulo">
+          <p class="universo__sublabel">O OLHAR</p>
+          <h3 class="universo__card-titulo" id="pilar-moda-titulo">
+            <em>Moda</em>
+          </h3>
+          <p class="universo__card-frase">O que o mundo vê quando você passa.</p>
+        </article>
+
+        <article class="universo__card" aria-labelledby="pilar-essence-titulo">
+          <p class="universo__sublabel">O DETALHE</p>
+          <h3 class="universo__card-titulo" id="pilar-essence-titulo">
+            <em>Essence</em>
+          </h3>
+          <p class="universo__card-frase">Acessórios e detalhes que completam você.</p>
+        </article>
+
+        <!-- Bloco dourado — quebra o ritmo do grid -->
+        <div class="universo__destaque" aria-label="Tudo que te veste">
+          <p class="universo__destaque-texto">
+            Tudo que<br>
+            te veste.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================
+         CONTATO
+         ÚNICA seção clara (off-white) — respiro visual
+         Linhas douradas SVG finas no fundo
+    ==================================================== -->
+    <section
+      id="contato"
+      class="contato"
+      aria-labelledby="contato-titulo"
+    >
+      <!-- Linhas SVG de fundo — gerenciadas por js/svg-draw.js -->
+      <div class="contato__arte-svg" aria-hidden="true">
+        <svg
+          class="contato__svg-linhas"
+          viewBox="0 0 1440 600"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path class="svg-linha svg-linha--contato-1" d="M0 150 Q480 50 960 200 Q1200 280 1440 150" fill="none" stroke-width="0.8"/>
+          <path class="svg-linha svg-linha--contato-2" d="M0 400 Q360 300 720 420 Q1080 540 1440 380" fill="none" stroke-width="0.6"/>
+          <path class="svg-linha svg-linha--contato-3" d="M300 0 Q280 300 260 600" fill="none" stroke-width="0.5"/>
+          <path class="svg-linha svg-linha--contato-4" d="M1100 0 Q1120 300 1140 600" fill="none" stroke-width="0.5"/>
+        </svg>
+      </div>
+
+      <div class="contato__content">
+        <p class="contato__label" id="contato-titulo">VISITE A LOJA</p>
+
+        <address class="contato__endereco">
+          <span class="contato__rua">R. Gavião Peixoto, 117</span>
+          <span class="contato__complemento">Sobreloja 01 · Icaraí, Niterói — RJ</span>
+        </address>
+
+        <p class="contato__convite">
+          Venha viver a experiência SSL pessoalmente. Será um prazer receber você.
+        </p>
+
+        <div class="contato__acoes">
+          <a
+            href="https://wa.me/5521982059599"
+            class="contato__btn-whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Falar com a SSL pelo WhatsApp — abre em nova aba"
+          >
+            <img
+              src="assets/icons/whatsapp.svg"
+              alt=""
+              class="contato__btn-icone"
+              aria-hidden="true"
+              width="20"
+              height="20"
+              loading="lazy"
+            >
+            <span>FALAR PELO WHATSAPP</span>
+          </a>
+
+          <a
+            href="https://instagram.com/ssl.lingerie"
+            class="contato__link-instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil da SSL no Instagram — abre em nova aba"
+          >
+            <img
+              src="assets/icons/instagram.svg"
+              alt=""
+              class="contato__link-icone"
+              aria-hidden="true"
+              width="18"
+              height="18"
+              loading="lazy"
+            >
+            <span>@ssl.lingerie</span>
+          </a>
+        </div>
+
+        <p class="contato__telefone">
+          <a href="tel:+5521982059599">(21) 98205-9599</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================
+       FOOTER
+       Azul-abissal, monograma, tagline, copyright
+  ====================================================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__content">
+
+      <a href="#hero" class="footer__logo" aria-label="SSL Lingerie &amp; Modas — Voltar ao topo">
+        <img
+          src="assets/logo/ssl-logo-dourado.svg"
+          alt="SSL Lingerie & Modas"
+          class="footer__logo-img"
+          width="60"
+          height="30"
+          loading="lazy"
+        >
+      </a>
+
+      <p class="footer__tagline">A arte de se vestir por dentro.</p>
+
+      <p class="footer__copy">
+        &copy; 2026 SSL Lingerie &amp; Modas &middot; Todos os direitos reservados
+      </p>
+
+      <a
+        href="https://instagram.com/ssl.lingerie"
+        class="footer__instagram"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram da SSL Lingerie &amp; Modas — abre em nova aba"
+      >
+        @ssl.lingerie
+      </a>
+
+    </div>
+  </footer>
+
+  <!-- =====================================================
+       SCRIPTS — defer, jamais inline
+       Ordem importa: main inicializa, demais dependem
+  ====================================================== -->
+  <script src="js/main.js" defer></script>
+  <script src="js/scroll.js" defer></script>
+  <script src="js/particles.js" defer></script>
+  <script src="js/svg-draw.js" defer></script>
+  <script src="js/parallax.js" defer></script>
+
+</body>
+</html>

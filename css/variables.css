@@ -1,0 +1,197 @@
+/* ==========================================================
+   VARIABLES — SSL Lingerie & Modas
+   Design tokens: cores, tipografia, espaçamento, layout,
+   sombras, transições e z-index.
+   Referência: PLANEJAMENTO_SSL_LINGERIE.md — seção 3
+========================================================== */
+
+:root {
+
+  /* --------------------------------------------------------
+     CORES
+  -------------------------------------------------------- */
+
+  /* Azuis escuros — base dominante */
+  --azul-abissal:        #070f24;   /* hero / footer / preloader */
+  --azul-noite:          #0a1430;   /* seções escuras padrão */
+  --azul-profundo:       #0d1b3e;   /* blocos, grids */
+  --azul-medio:          #16264f;   /* cards, hovers, contraste sutil */
+
+  /* Preto — drama puro */
+  --preto:               #000000;   /* seção drama (partículas) */
+
+  /* Dourado — protagonista de luz */
+  --dourado:             #c9a86a;   /* destaque principal */
+  --dourado-claro:       #e0c896;   /* brilho / hover / texto pequeno */
+  --dourado-escuro:      #a8884e;   /* detalhes sobre fundo claro */
+
+  /* Claros — respiro pontual (só na seção Contato) */
+  --off-white:           #f4f1ea;   /* fundo claro + texto sobre escuro */
+  --branco:              #ffffff;
+
+  /* Texto */
+  --texto-principal:     var(--off-white);
+  --texto-suave:         rgba(244, 241, 234, 0.65);
+  --texto-escuro:        var(--azul-abissal);
+
+
+  /* --------------------------------------------------------
+     TIPOGRAFIA
+  -------------------------------------------------------- */
+
+  /* Famílias */
+  --fonte-display:     'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --fonte-script:      'Tangerine', 'Great Vibes', cursive;
+  --fonte-sans:        'Jost', 'Montserrat', system-ui, sans-serif;
+
+  /* Pesos */
+  --peso-light:        300;
+  --peso-regular:      400;
+  --peso-medio:        500;
+  --peso-semi:         600;
+
+  /* --------------------------------------------------------
+     ESCALA TIPOGRÁFICA — fluid com clamp()
+     Estratégia: mobile-first, cresce em viewports maiores
+  -------------------------------------------------------- */
+
+  /* Labels (CAIXA ALTA com letter-spacing) */
+  --txt-label:         clamp(0.625rem, 1.2vw, 0.75rem);     /* 10–12px */
+
+  /* Corpo e apoio */
+  --txt-small:         clamp(0.8125rem, 1.4vw, 0.9375rem);  /* 13–15px */
+  --txt-body:          clamp(0.9375rem, 1.6vw, 1.0625rem);  /* 15–17px */
+  --txt-lead:          clamp(1rem, 1.8vw, 1.25rem);         /* 16–20px */
+
+  /* Títulos */
+  --txt-h3:            clamp(1.25rem, 2.5vw, 1.75rem);      /* 20–28px */
+  --txt-h2:            clamp(1.75rem, 3.5vw, 2.5rem);       /* 28–40px */
+  --txt-h1:            clamp(2.5rem, 6vw, 5rem);            /* 40–80px */
+
+  /* Display — seções destaque */
+  --txt-display:       clamp(3rem, 8vw, 6.5rem);            /* 48–104px */
+
+  /* Hero e manifesto — tamanhos dramáticos */
+  --txt-hero:          clamp(4rem, 14vw, 10rem);            /* 64–160px */
+  --txt-manifesto:     clamp(2rem, 5.5vw, 4.5rem);          /* 32–72px */
+
+  /* Script — cursiva assinatura */
+  --txt-script-hero:   clamp(2.5rem, 10vw, 7.5rem);         /* 40–120px */
+  --txt-script-frase:  clamp(1.5rem, 4vw, 3.5rem);          /* 24–56px */
+
+  /* Line heights */
+  --lh-tight:          0.92;     /* títulos dramáticos */
+  --lh-heading:        1.1;      /* h1–h3 padrão */
+  --lh-relaxed:        1.35;     /* subtítulos */
+  --lh-body:           1.65;     /* corpo de texto */
+  --lh-script:         1.2;      /* cursivas */
+
+  /* Letter spacing */
+  --ls-label:          0.28em;   /* labels CAIXA ALTA */
+  --ls-nav:            0.18em;   /* links de navegação */
+  --ls-titulo:         0.04em;   /* títulos display (leve) */
+  --ls-negativo:      -0.02em;   /* grandes displays (comprime) */
+
+
+  /* --------------------------------------------------------
+     ESPAÇAMENTO
+  -------------------------------------------------------- */
+
+  --sp-1:   0.25rem;    /* 4px  */
+  --sp-2:   0.5rem;     /* 8px  */
+  --sp-3:   0.75rem;    /* 12px */
+  --sp-4:   1rem;       /* 16px */
+  --sp-5:   1.25rem;    /* 20px */
+  --sp-6:   1.5rem;     /* 24px */
+  --sp-8:   2rem;       /* 32px */
+  --sp-10:  2.5rem;     /* 40px */
+  --sp-12:  3rem;       /* 48px */
+  --sp-16:  4rem;       /* 64px */
+  --sp-20:  5rem;       /* 80px */
+  --sp-24:  6rem;       /* 96px */
+  --sp-32:  8rem;       /* 128px */
+
+  /* Espaçamento de seção — padding vertical generoso */
+  --espaco-section:     clamp(4rem, 10vw, 7rem);
+
+
+  /* --------------------------------------------------------
+     LAYOUT
+  -------------------------------------------------------- */
+
+  --max-width:          1280px;
+  --content-width:      680px;
+  --content-narrow:     520px;
+  --header-height:      5rem;
+  --margem-lateral:     clamp(1.25rem, 5vw, 4rem);
+
+
+  /* --------------------------------------------------------
+     BORDAS & RAIOS
+  -------------------------------------------------------- */
+
+  --radius-sm:          2px;
+  --radius-md:          4px;
+  --radius-lg:          8px;
+
+
+  /* --------------------------------------------------------
+     SOMBRAS E BRILHOS
+  -------------------------------------------------------- */
+
+  --sombra-suave:       0 4px 24px rgba(0, 0, 0, 0.30);
+  --sombra-media:       0 8px 40px rgba(0, 0, 0, 0.50);
+  --sombra-forte:       0 16px 64px rgba(0, 0, 0, 0.70);
+  --brilho-dourado:     0 0 40px rgba(201, 168, 106, 0.20);
+  --brilho-dourado-fx:  0 0 80px rgba(224, 200, 150, 0.15);
+
+  /* Backdrop blur (header ao rolar) */
+  --blur-header:        blur(12px) saturate(150%);
+
+
+  /* --------------------------------------------------------
+     TRANSIÇÕES
+  -------------------------------------------------------- */
+
+  --ease-out:           cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out:        cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:        cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --t-rapida:           0.18s var(--ease-out);
+  --t-media:            0.40s var(--ease-out);
+  --t-lenta:            0.80s var(--ease-out);
+  --t-reveal:           1.0s var(--ease-in-out);
+
+
+  /* --------------------------------------------------------
+     Z-INDEX — escala semântica
+  -------------------------------------------------------- */
+
+  --z-fundo:            -1;
+  --z-base:              0;
+  --z-sobre:            10;
+  --z-flutuante:        20;
+  --z-header:          100;
+  --z-overlay:         200;
+  --z-preloader:       999;
+
+
+  /* --------------------------------------------------------
+     STROKE SVG — linhas douradas animadas
+  -------------------------------------------------------- */
+
+  --stroke-dourado:     var(--dourado);
+  --stroke-dourado-alt: var(--dourado-claro);
+  --stroke-opacity:     0.5;
+  --stroke-opacity-alt: 0.3;
+}
+
+
+/* ============================================================
+   MODO ESCURO EXPLÍCITO (redundante aqui — o site já é escuro,
+   mas garante consistência se o sistema forçar light mode)
+============================================================ */
+@media (prefers-color-scheme: light) {
+  /* O site é intencionalmente escuro; nenhuma variável é sobrescrita.
+     A seção Contato usa --off-white diretamente no style.css. */
+}

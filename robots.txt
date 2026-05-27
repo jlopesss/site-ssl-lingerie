@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ssllingerie.com.br/sitemap.xml
