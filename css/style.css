@@ -46,7 +46,6 @@ body {
 .preloader__marca,
 .header__link,
 .nav-overlay__link,
-.hero__botao,
 .contato__btn-whatsapp,
 .marquee-faixa__texto {
   font-family: var(--fonte-sans);
@@ -425,41 +424,6 @@ body {
   color: var(--texto-suave);
   max-width: 42ch;
   text-align: center;
-}
-
-/* Botão fantasma */
-.hero__botao {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-3);
-  margin-top: var(--sp-2);
-  padding: var(--sp-4) var(--sp-10);
-  border: 1px solid rgba(201, 168, 106, 0.45);
-  font-size: var(--txt-label);
-  color: var(--dourado-claro);
-  transition:
-    background-color var(--t-media),
-    border-color var(--t-media),
-    box-shadow var(--t-media);
-  background: var(--gradiente-dourado);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.hero__botao:hover {
-  background-color: rgba(201, 168, 106, 0.1);
-  border-color: var(--dourado-claro);
-  box-shadow: var(--brilho-dourado);
-}
-
-.hero__botao-seta {
-  display: inline-block;
-  transition: transform var(--t-media);
-}
-
-.hero__botao:hover .hero__botao-seta {
-  transform: translateY(5px);
 }
 
 /* Linha de scroll no canto inferior */
