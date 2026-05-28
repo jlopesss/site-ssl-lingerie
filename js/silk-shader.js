@@ -24,7 +24,7 @@ var T2 = 0.40;     // velocidade onda 2  [0.8–2.0]
 var T3 = 0.28;     // velocidade onda 3  [0.5–1.5]
 
 // Cores do tecido (vec3 linear, formato "R, G, B")
-var COR_VALE   = '0.020, 0.039, 0.122';  // #050a1f — vales (sombra entre dobras)
+var COR_VALE   = '0.047, 0.082, 0.200';  // #0c1533 — vales (sombra entre dobras)
 var COR_CRISTA = '0.102, 0.176, 0.361';  // #1a2d5c — cristas (luz nas dobras)
 
 // Especular — reflexo nas cristas (cetim/seda)
@@ -34,9 +34,9 @@ var GOLD_LO  = 0.68;  // spec abaixo desse valor → branco azulado
 var GOLD_HI  = 0.92;  // spec acima desse valor  → dourado #c9a86a
 
 // Mouse — influência do cursor no tecido
-var MOUSE_FORCA = 0.090;  // força do empurrão local  [0.02–0.12]
-var MOUSE_RAIO  = 4.5;    // decaimento com distância (maior = área menor)  [3–8]
-var LERP_MOUSE  = 0.070;  // suavização JS frame-a-frame  [0.01=lento 0.08=rápido]
+var MOUSE_FORCA = 0.150;  // força do empurrão local  [0.02–0.20]
+var MOUSE_RAIO  = 4.0;    // decaimento com distância (maior = área menor)  [3–8]
+var LERP_MOUSE  = 0.120;  // suavização JS frame-a-frame  [0.01=lento 0.15=rápido]
 
 // ══════════════════════════════════════════════════════════════════
 
