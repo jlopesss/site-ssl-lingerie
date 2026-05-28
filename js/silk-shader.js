@@ -30,7 +30,7 @@ var PESO_NOISE   = 0.15;   // [0.05–0.20] — acima disso vira ruído de TV
 var FREQ_NOISE   = 2.5;    // [1.0–3.0]   — acima de 3 começa a granular
 
 // Velocidade global (multiplica todos os VEL_ONDA_*)
-var VELOCIDADE_TEMPO = 1.0;   // [0.5–2.0]
+var VELOCIDADE_TEMPO = 0.7;   // [0.5–2.0]
 
 // Cores
 var COR_VALE     = '0.039, 0.075, 0.180';  // #0a1330 — sombra entre dobras
