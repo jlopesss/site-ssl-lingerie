@@ -161,33 +161,13 @@
       class="hero"
       aria-labelledby="hero-titulo"
     >
-      <!-- Arte SVG de fundo — linhas douradas que se desenham -->
-      <div class="hero__arte-svg" aria-hidden="true">
-        <svg
-          class="hero__svg-linhas"
-          viewBox="0 0 1440 900"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <!-- Lençol drapeado — dobras de tecido convergem no topo central e se abrem -->
-          <!-- Eixo central: cai quase reto com leve oscilação -->
-          <path class="svg-linha" d="M718 0 C712 200 706 400 712 600 C718 750 716 860 713 920" fill="none" stroke-width="0.8"/>
-          <!-- Dobra 2 — esquerda próxima -->
-          <path class="svg-linha" d="M710 -10 C665 160 618 340 588 520 C562 670 570 800 556 930" fill="none" stroke-width="0.62"/>
-          <!-- Dobra 3 — esquerda média -->
-          <path class="svg-linha" d="M700 -20 C605 130 486 292 366 474 C264 624 216 762 178 940" fill="none" stroke-width="0.46"/>
-          <!-- Dobra 4 — esquerda longa -->
-          <path class="svg-linha" d="M690 -28 C558 162 358 332 168 524 C8 682 -42 812 -62 962" fill="none" stroke-width="0.3"/>
-          <!-- Dobra 5 — direita próxima -->
-          <path class="svg-linha" d="M728 -10 C778 160 838 342 868 522 C896 672 886 802 898 932" fill="none" stroke-width="0.62"/>
-          <!-- Dobra 6 — direita média -->
-          <path class="svg-linha" d="M738 -20 C858 132 1006 292 1128 472 C1236 632 1278 772 1308 940" fill="none" stroke-width="0.46"/>
-          <!-- Dobra 7 — direita longa -->
-          <path class="svg-linha" d="M748 -28 C938 172 1158 342 1338 522 C1468 662 1528 792 1548 962" fill="none" stroke-width="0.3"/>
-        </svg>
-      </div>
+      <!-- Canvas WebGL — simulação de tecido de seda (Fase 2) -->
+      <!-- Fallback automático: CSS gradient visível se WebGL indisponível -->
+      <canvas
+        id="hero-silk"
+        class="hero__canvas-seda"
+        aria-hidden="true"
+      ></canvas>
 
       <div class="hero__content">
         <p class="hero__pretitulo" aria-label="Estabelecimento em Niterói, RJ">EST. NITERÓI · RJ</p>
@@ -692,6 +672,7 @@
   <!-- Ordem importa: svg-draw define window.SSL.svgDraw antes do scroll.js -->
   <script src="js/main.js" defer></script>
   <script src="js/svg-draw.js" defer></script>
+  <script src="js/silk-shader.js" defer></script>
   <script src="js/particles.js" defer></script>
   <script src="js/scroll.js" defer></script>
   <script src="js/parallax.js" defer></script>

@@ -299,27 +299,26 @@ body {
   overflow: hidden;
 }
 
-/* Camada SVG de linhas — gerenciada por svg-draw.js */
-.hero__arte-svg {
+/* Canvas WebGL de seda — Fase 2
+   Cobre toda a hero; o shader renderiza o tecido.
+   Fallback automático: canvas permanece transparente se WebGL falhar
+   e o background-image do .hero (gradiente CSS) fica visível. */
+.hero__canvas-seda {
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
-}
-
-.hero__svg-linhas {
   width: 100%;
   height: 100%;
   display: block;
+  pointer-events: none;
 }
 
-/* Cor e opacidade base das linhas — animação via svg-draw.js */
+/* CSS legados das linhas SVG (agora removidas do HTML — manter até Fase 10) */
+.hero__arte-svg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero__svg-linhas { width: 100%; height: 100%; display: block; }
 .svg-linha {
-  stroke: var(--dourado);
-  opacity: 0.35;
-  fill: none;
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
+  stroke: var(--dourado); opacity: 0.35; fill: none;
+  stroke-dasharray: 2000; stroke-dashoffset: 2000;
 }
 
 .hero__content {
