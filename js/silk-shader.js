@@ -2,8 +2,43 @@
 // Fase 2: simulação de tecido de seda em WebGL puro na hero.
 // Sem frameworks. GLSL ES 1.0. Fallback CSS automático.
 
+// ── PARÂMETROS (calibrar aqui) ─────────────────────────────────────────────
+//
+//  COR BASE DO TECIDO
+//    AZUL_VALE   = cor no fundo das dobras  (vec3 linear, inserida no FRAG)
+//    AZUL_CRISTA = cor no topo das dobras   (vec3 linear, inserida no FRAG)
+//
+//  ESPECULAR (reflexo nas cristas — dourado sutil)
+//    SPEC1_POT   = shininess luz principal (maior = estria mais estreita)
+//    SPEC1_INT   = intensidade especular principal   [0–1, recomendado: 0.18]
+//    SPEC2_INT   = intensidade especular preenchimento [0–1, recomendado: 0.08]
+//    GOLD_LO     = spec1 abaixo → branco puro
+//    GOLD_HI     = spec1 acima → totalmente dourado
+//
+//  MOUSE
+//    MOUSE_FORCA = deslocamento UV máximo do cursor  [recomendado: 0.018]
+//    MOUSE_RAIO  = decaimento da influência (maior = raio menor) [recomendado: 6.0]
+//    LERP_MOUSE  = suavização JS frame-a-frame  [0.01=lento, 0.05=médio]
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
 (function () {
   'use strict';
+
+  // ── Parâmetros ajustáveis ──────────────────────────────────────
+  // (injetados no FRAG via template-literal ${...} ou usados no JS)
+
+  // Mouse — influência do cursor no tecido
+  var MOUSE_FORCA = 0.018;   // deslocamento UV máximo  [0.01–0.04]
+  var MOUSE_RAIO  = 6.0;    // decaimento com distância (maior = raio menor) [4–10]
+  var LERP_MOUSE  = 0.015;  // suavização JS frame-a-frame  [0.01=lento 0.05=rápido]
+
+  // Especular — reflexos nas cristas das dobras
+  var SPEC1_POT  = 64.0;   // shininess luz principal  (maior = estria mais estreita)
+  var SPEC1_INT  = 0.20;   // intensidade especular principal   [0.10–0.35]
+  var SPEC2_INT  = 0.08;   // intensidade especular preenchimento [0.03–0.12]
+  var GOLD_LO    = 0.45;   // spec1 abaixo → branco (sem dourado)
+  var GOLD_HI    = 0.82;   // spec1 acima  → totalmente dourado
 
   // ── Pré-condições ──────────────────────────────────────────────
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -63,7 +98,9 @@ float fbm(vec2 p) {
 float onda(vec2 uv, float t, vec2 m) {
     vec2  d    = uv - m;
     float dist = length(d) + 0.001;
-    uv += (d / dist) * exp(-dist * 2.0) * 0.10;
+    // Empurrão suave: decaimento rápido (MOUSE_RAIO) + força baixa (MOUSE_FORCA)
+    float peso = exp(-dist * ${MOUSE_RAIO.toFixed(1)}) * ${MOUSE_FORCA.toFixed(3)};
+    uv += (d / dist) * peso;
     float h = 0.0;
     h += 0.48 * sin(uv.x * 2.2  + uv.y * 1.6  + t * 0.32);
     h += 0.28 * sin(uv.x * 1.4  - uv.y * 2.5  + t * 0.48);
@@ -104,21 +141,22 @@ void main() {
     vec3  H1    = normalize(L1 + V);
     float tH1   = dot(T, H1);
     float aniso1 = sqrt(max(1.0 - tH1 * tH1, 0.0));
-    float spec1  = pow(max(aniso1, 0.0), 32.0) * max(dot(N, L1), 0.0);
+    float spec1  = pow(max(aniso1, 0.0), ${SPEC1_POT.toFixed(1)}) * max(dot(N, L1), 0.0);
 
     vec3  H2    = normalize(L2 + V);
     float tH2   = dot(T, H2);
     float aniso2 = sqrt(max(1.0 - tH2 * tH2, 0.0));
-    float spec2  = pow(max(aniso2, 0.0), 16.0) * max(dot(N, L2), 0.0) * 0.35;
+    float spec2  = pow(max(aniso2, 0.0), ${(SPEC1_POT * 0.5).toFixed(1)}) * max(dot(N, L2), 0.0);
 
-    vec3 sWhite = vec3(0.90, 0.95, 1.00);
+    // Branco-azulado nos reflexos baixos, dourado apenas nos picos intensos
+    vec3 sWhite = vec3(0.88, 0.92, 1.00);
     vec3 sGold  = vec3(0.784, 0.627, 0.220);
-    vec3 sCol1  = mix(sWhite, sGold, smoothstep(0.10, 0.65, spec1));
+    vec3 sCol1  = mix(sWhite, sGold, smoothstep(${GOLD_LO.toFixed(2)}, ${GOLD_HI.toFixed(2)}, spec1));
 
-    float diff = max(dot(N, L1), 0.0) * 0.25;
-    col = col * (0.60 + diff)
-        + spec1 * sCol1  * 1.10
-        + spec2 * sWhite * 0.25;
+    float diff = max(dot(N, L1), 0.0) * 0.20;
+    col = col * (0.65 + diff)
+        + spec1 * sCol1  * ${SPEC1_INT.toFixed(2)}
+        + spec2 * sWhite * ${SPEC2_INT.toFixed(2)};
 
     // ── Vinheta ───────────────────────────────────────────────────
     float vR   = length((uv - 0.5) * vec2(0.80, 1.20));
@@ -198,15 +236,13 @@ void main() {
 
   // ── Loop de animação ────────────────────────────────────────────
   let rafId = null, ativo = false;
-  const LERP = 0.04;
 
   function desenhar(agora) {
     rafId = null;
     if (!ativo) return;
 
-    // Lerp para suavizar movimento do mouse
-    mX += (mTX - mX) * LERP;
-    mY += (mTY - mY) * LERP;
+    mX += (mTX - mX) * LERP_MOUSE;
+    mY += (mTY - mY) * LERP_MOUSE;
 
     gl.uniform1f(uTime,  agora * 0.001);
     gl.uniform2f(uMouse, mX, mY);
