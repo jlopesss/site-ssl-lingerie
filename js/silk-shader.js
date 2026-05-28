@@ -2,43 +2,46 @@
 // Fase 2: simulação de tecido de seda em WebGL puro na hero.
 // Sem frameworks. GLSL ES 1.0. Fallback CSS automático.
 
-// ── PARÂMETROS (calibrar aqui) ─────────────────────────────────────────────
-//
-//  COR BASE DO TECIDO
-//    AZUL_VALE   = cor no fundo das dobras  (vec3 linear, inserida no FRAG)
-//    AZUL_CRISTA = cor no topo das dobras   (vec3 linear, inserida no FRAG)
-//
-//  ESPECULAR (reflexo nas cristas — dourado sutil)
-//    SPEC1_POT   = shininess luz principal (maior = estria mais estreita)
-//    SPEC1_INT   = intensidade especular principal   [0–1, recomendado: 0.18]
-//    SPEC2_INT   = intensidade especular preenchimento [0–1, recomendado: 0.08]
-//    GOLD_LO     = spec1 abaixo → branco puro
-//    GOLD_HI     = spec1 acima → totalmente dourado
-//
-//  MOUSE
-//    MOUSE_FORCA = deslocamento UV máximo do cursor  [recomendado: 0.018]
-//    MOUSE_RAIO  = decaimento da influência (maior = raio menor) [recomendado: 6.0]
-//    LERP_MOUSE  = suavização JS frame-a-frame  [0.01=lento, 0.05=médio]
-//
-// ─────────────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════
+// PARÂMETROS — ajuste aqui sem tocar no shader
+// (injetados no FRAG via template-literal ${...})
+// ══════════════════════════════════════════════════════════════════
+
+// Ondas — amplitude (quanto o tecido se dobra visualmente)
+var AMP1 = 0.55;   // onda principal diag  [0.3–0.8]
+var AMP2 = 0.35;   // onda secundária      [0.2–0.5]
+var AMP3 = 0.22;   // onda terciária       [0.1–0.35]
+var AMP4 = 0.12;   // ruído orgânico fbm   [0.05–0.20]
+
+// Ondas — frequência espacial (quanto espaço há entre dobras)
+var FREQ1 = 2.2;   // onda 1  [1.5–3.5]
+var FREQ2 = 1.6;   // onda 2  [1.0–2.5]
+var FREQ3 = 3.4;   // onda 3  [2.5–5.0]
+
+// Ondas — velocidade de animação em rad/s (quanto mais alto, mais rápido)
+var T1 = 1.8;      // velocidade onda 1  [1.0–3.0]
+var T2 = 1.3;      // velocidade onda 2  [0.8–2.0]
+var T3 = 0.9;      // velocidade onda 3  [0.5–1.5]
+
+// Cores do tecido (vec3 linear, formato "R, G, B")
+var COR_VALE   = '0.020, 0.039, 0.122';  // #050a1f — vales (sombra entre dobras)
+var COR_CRISTA = '0.102, 0.176, 0.361';  // #1a2d5c — cristas (luz nas dobras)
+
+// Especular — reflexo nas cristas (cetim/seda)
+var SPEC_POT = 12.0;  // expoente: menor = estria larga, maior = pontual  [8–32]
+var SPEC_INT = 0.22;  // intensidade total do reflexo  [0.10–0.40]
+var GOLD_LO  = 0.50;  // spec abaixo desse valor → branco azulado
+var GOLD_HI  = 0.82;  // spec acima desse valor  → dourado #c9a86a
+
+// Mouse — influência do cursor no tecido
+var MOUSE_FORCA = 0.045;  // força do empurrão local  [0.02–0.08]
+var MOUSE_RAIO  = 5.0;    // decaimento com distância (maior = área menor)  [3–8]
+var LERP_MOUSE  = 0.030;  // suavização JS frame-a-frame  [0.01=lento 0.08=rápido]
+
+// ══════════════════════════════════════════════════════════════════
 
 (function () {
   'use strict';
-
-  // ── Parâmetros ajustáveis ──────────────────────────────────────
-  // (injetados no FRAG via template-literal ${...} ou usados no JS)
-
-  // Mouse — influência do cursor no tecido
-  var MOUSE_FORCA = 0.018;   // deslocamento UV máximo  [0.01–0.04]
-  var MOUSE_RAIO  = 6.0;    // decaimento com distância (maior = raio menor) [4–10]
-  var LERP_MOUSE  = 0.015;  // suavização JS frame-a-frame  [0.01=lento 0.05=rápido]
-
-  // Especular — reflexos nas cristas das dobras
-  var SPEC1_POT  = 64.0;   // shininess luz principal  (maior = estria mais estreita)
-  var SPEC1_INT  = 0.20;   // intensidade especular principal   [0.10–0.35]
-  var SPEC2_INT  = 0.08;   // intensidade especular preenchimento [0.03–0.12]
-  var GOLD_LO    = 0.45;   // spec1 abaixo → branco (sem dourado)
-  var GOLD_HI    = 0.82;   // spec1 acima  → totalmente dourado
 
   // ── Pré-condições ──────────────────────────────────────────────
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -48,7 +51,6 @@
   if (!canvas || !hero) return;
 
   // ── Contexto WebGL ─────────────────────────────────────────────
-  // alpha:true → canvas transparente por padrão → fallback CSS visível se shader falhar
   const gl = canvas.getContext('webgl',              { alpha: true, antialias: false })
           || canvas.getContext('experimental-webgl', { alpha: true, antialias: false });
   if (!gl) return;
@@ -64,9 +66,8 @@ attribute vec2 a_pos;
 void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }`;
 
   // ── Fragment shader ────────────────────────────────────────────
-  // Modelo: dobras de cetim azul com specular anisotrópico (fibras de seda)
-  // e reflexo dourado nas cristas mais intensas.
-  // Fixes GLSL ES 1.0: sem "const" em funções, sem declarações múltiplas na mesma linha.
+  // Parâmetros JS são injetados via ${...} — ver bloco PARÂMETROS no topo.
+  // GLSL ES 1.0: sem "const" em funções, sem multi-declaração na mesma linha.
   const FRAG = `
 precision highp float;
 
@@ -83,85 +84,93 @@ float sNoise(vec2 p) {
     vec2 f = fract(p);
     vec2 u = f * f * (3.0 - 2.0 * f);
     return mix(
-        mix(hash(i),                hash(i + vec2(1.0, 0.0)), u.x),
+        mix(hash(i),                  hash(i + vec2(1.0, 0.0)), u.x),
         mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
         u.y
     ) * 2.0 - 1.0;
 }
 float fbm(vec2 p) {
     return 0.500 * sNoise(p)
-         + 0.250 * sNoise(p * 2.1  + vec2(1.7, 9.2))
+         + 0.250 * sNoise(p * 2.10 + vec2(1.7, 9.2))
          + 0.125 * sNoise(p * 4.35 + vec2(8.3, 2.8));
 }
 
-// ── Campo de ondas do tecido ──────────────────────────────────────
-float onda(vec2 uv, float t, vec2 m) {
-    vec2  d    = uv - m;
-    float dist = length(d) + 0.001;
-    // Empurrão suave: decaimento rápido (MOUSE_RAIO) + força baixa (MOUSE_FORCA)
-    float peso = exp(-dist * ${MOUSE_RAIO.toFixed(1)}) * ${MOUSE_FORCA.toFixed(3)};
-    uv += (d / dist) * peso;
+// ── Campo de alturas do tecido ────────────────────────────────────
+// 3 senoides em direções distintas + fbm orgânico.
+// As frequências e velocidades são os parâmetros FREQ/T injetados.
+float altura(vec2 uv, float t) {
     float h = 0.0;
-    h += 0.48 * sin(uv.x * 2.2  + uv.y * 1.6  + t * 0.32);
-    h += 0.28 * sin(uv.x * 1.4  - uv.y * 2.5  + t * 0.48);
-    h += 0.16 * sin(uv.x * 3.8  + uv.y * 2.9  - t * 0.22);
-    h += 0.08 * fbm(uv * 1.2 + t * 0.04);
+    h += ${AMP1.toFixed(3)} * sin(uv.x * ${FREQ1.toFixed(2)} + uv.y * 0.80 + t * ${T1.toFixed(2)});
+    h += ${AMP2.toFixed(3)} * sin(uv.x * 0.70 - uv.y * ${FREQ2.toFixed(2)} + t * ${T2.toFixed(2)} + 1.57);
+    h += ${AMP3.toFixed(3)} * sin(uv.x * ${FREQ3.toFixed(2)} + uv.y * ${(FREQ3 * 0.6).toFixed(2)} - t * ${T3.toFixed(2)} + 0.80);
+    h += ${AMP4.toFixed(3)} * fbm(uv * 1.5 + t * 0.06);
     return h;
 }
 
 void main() {
     vec2  uv  = gl_FragCoord.xy / u_res;
     float ar  = u_res.x / u_res.y;
-    vec2  wUV = vec2(uv.x * ar, uv.y) * 2.5;
-    vec2  mUV = vec2(u_mouse.x * ar, u_mouse.y) * 2.5;
 
-    // ── Normal de superfície (diferenças finitas) ─────────────────
-    float eps = 0.006;
-    float h   = onda(wUV, u_time, mUV);
-    float hx  = onda(wUV + vec2(eps, 0.0), u_time, mUV);
-    float hy  = onda(wUV + vec2(0.0, eps), u_time, mUV);
-    vec3  N   = normalize(vec3(-(hx - h) / eps * 0.32,
-                               -(hy - h) / eps * 0.32, 1.0));
+    // UV em espaço de ondas (preserva proporção)
+    vec2 wUV = vec2(uv.x * ar, uv.y) * 2.5;
+    vec2 mUV = vec2(u_mouse.x * ar, u_mouse.y) * 2.5;
 
-    // ── Cor base: azuis da marca por altura ───────────────────────
-    float t_h = clamp((h + 1.0) * 0.5, 0.0, 1.0);
-    vec3  col = mix(
-        vec3(0.027, 0.059, 0.141),   // #070f24 — vale profundo
-        vec3(0.086, 0.149, 0.310),   // #16264f — crista clara
-        t_h
+    // Empurrão suave do mouse: desvia UV localmente ao redor do cursor
+    vec2  md   = wUV - mUV;
+    float mDst = length(md) + 0.001;
+    float mPes = exp(-mDst * ${MOUSE_RAIO.toFixed(1)}) * ${MOUSE_FORCA.toFixed(3)};
+    vec2  warp = wUV + (md / mDst) * mPes;
+
+    // ── Altura + normal por diferenças finitas ────────────────────
+    float eps = 0.008;
+    float h   = altura(warp, u_time);
+    float hx  = altura(warp + vec2(eps, 0.0), u_time);
+    float hy  = altura(warp + vec2(0.0, eps), u_time);
+
+    // Normal aponta para cima, inclinada pela derivada da superfície
+    vec3 N = normalize(vec3(
+        -(hx - h) / eps * 0.45,
+        -(hy - h) / eps * 0.45,
+        1.0
+    ));
+
+    // ── Cor base: vales escuros → cristas mais claras ─────────────
+    // t_h em 0..1; ao quadrado (t_h2) aumenta contraste na zona escura
+    float t_h  = clamp(h * 0.5 + 0.5, 0.0, 1.0);
+    float t_h2 = t_h * t_h;
+    vec3 col = mix(
+        vec3(${COR_VALE}),   // vale — sombra entre dobras
+        vec3(${COR_CRISTA}), // crista — luz nas dobras
+        t_h2
     );
 
-    // ── Especular anisotrópico (fibra de seda — modelo Scheuermann) ─
-    // Produz estria de brilho perpendicular à fibra, não um ponto.
-    vec3  V   = vec3(0.0, 0.0, 1.0);
-    vec3  L1  = normalize(vec3( 0.5,  0.7, 1.2));
-    vec3  L2  = normalize(vec3(-0.6, -0.4, 1.0));
-    vec3  T   = normalize(vec3(1.0, 0.08 * sin(u_time * 0.12 + wUV.y * 0.5), 0.0));
+    // ── Especular anisotrópico (modelo Scheuermann — fibras de seda) ─
+    // Produz estria de brilho ao longo da fibra, não um ponto redondo.
+    vec3  V  = vec3(0.0, 0.0, 1.0);
+    vec3  L1 = normalize(vec3(0.50, 0.70, 1.20));
+    // Tangente da fibra: levemente modulada pelo tempo para respiro orgânico
+    vec3  T  = normalize(vec3(1.0, 0.10 * sin(u_time * 0.10 + warp.y * 0.40), 0.0));
 
     vec3  H1    = normalize(L1 + V);
     float tH1   = dot(T, H1);
-    float aniso1 = sqrt(max(1.0 - tH1 * tH1, 0.0));
-    float spec1  = pow(max(aniso1, 0.0), ${SPEC1_POT.toFixed(1)}) * max(dot(N, L1), 0.0);
+    float aniso = sqrt(max(1.0 - tH1 * tH1, 0.0));
+    // spec: intenso onde o normal de superfície aponta para a luz
+    float spec  = pow(max(aniso, 0.0), ${SPEC_POT.toFixed(1)})
+                * max(dot(N, L1), 0.0);
 
-    vec3  H2    = normalize(L2 + V);
-    float tH2   = dot(T, H2);
-    float aniso2 = sqrt(max(1.0 - tH2 * tH2, 0.0));
-    float spec2  = pow(max(aniso2, 0.0), ${(SPEC1_POT * 0.5).toFixed(1)}) * max(dot(N, L2), 0.0);
+    // Mistura branco-azulado (reflexo neutro) → dourado (pico de brilho)
+    vec3 sWhite = vec3(0.88, 0.93, 1.00);
+    vec3 sGold  = vec3(0.788, 0.659, 0.416); // #c9a86a
+    vec3 sCol   = mix(sWhite, sGold, smoothstep(${GOLD_LO.toFixed(2)}, ${GOLD_HI.toFixed(2)}, spec));
 
-    // Branco-azulado nos reflexos baixos, dourado apenas nos picos intensos
-    vec3 sWhite = vec3(0.88, 0.92, 1.00);
-    vec3 sGold  = vec3(0.784, 0.627, 0.220);
-    vec3 sCol1  = mix(sWhite, sGold, smoothstep(${GOLD_LO.toFixed(2)}, ${GOLD_HI.toFixed(2)}, spec1));
-
-    float diff = max(dot(N, L1), 0.0) * 0.20;
-    col = col * (0.65 + diff)
-        + spec1 * sCol1  * ${SPEC1_INT.toFixed(2)}
-        + spec2 * sWhite * ${SPEC2_INT.toFixed(2)};
+    // Difusa leve para dar volume sem apagar o azul base
+    float diff = max(dot(N, L1), 0.0) * 0.18;
+    col = col * (0.72 + diff) + spec * sCol * ${SPEC_INT.toFixed(2)};
 
     // ── Vinheta ───────────────────────────────────────────────────
     float vR   = length((uv - 0.5) * vec2(0.80, 1.20));
     float vign = 1.0 - smoothstep(0.0, 0.65, vR);
-    col *= mix(0.35, 1.0, vign);
+    col *= mix(0.28, 1.0, vign);
 
     gl_FragColor = vec4(col, 1.0);
 }`;
@@ -193,7 +202,7 @@ void main() {
   }
   gl.useProgram(prog);
 
-  // ── Quad fullscreen (dois triângulos em TRIANGLE_STRIP) ────────
+  // ── Quad fullscreen (TRIANGLE_STRIP) ──────────────────────────
   const vBuf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
   gl.bufferData(gl.ARRAY_BUFFER,
@@ -224,7 +233,7 @@ void main() {
     resizeTimer = setTimeout(redimensionar, 120);
   }, { passive: true });
 
-  // ── Mouse (apenas desktop com hover) ───────────────────────────
+  // ── Mouse (apenas desktop com hover real) ─────────────────────
   let mX = 0.5, mY = 0.5, mTX = 0.5, mTY = 0.5;
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     hero.addEventListener('mousemove', e => {
@@ -254,11 +263,10 @@ void main() {
   // ── IntersectionObserver — pausa fora da viewport ───────────────
   new IntersectionObserver(entries => {
     ativo = entries[0].isIntersecting;
-    if (ativo && !rafId)  rafId = requestAnimationFrame(desenhar);
-    if (!ativo && rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    if (ativo  && !rafId) rafId = requestAnimationFrame(desenhar);
+    if (!ativo &&  rafId) { cancelAnimationFrame(rafId); rafId = null; }
   }, { threshold: 0.01 }).observe(hero);
 
-  // Sinaliza que o shader está ativo (útil para debug / CSS)
   hero.dataset.silk = '1';
 
 })();
