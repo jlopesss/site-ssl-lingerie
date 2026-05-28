@@ -47,7 +47,8 @@
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="assets/logo/ssl-logo-dourado.svg">
+  <link rel="icon" href="assets/logo/ssl-logo-circle.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="assets/logo/ssl-logo-circle.png">
 
   <!-- CSS — arquivos separados, jamais inline -->
   <link rel="stylesheet" href="css/reset.css">
@@ -64,11 +65,11 @@
   <div id="preloader" class="preloader" role="status" aria-label="Carregando SSL Lingerie & Modas">
     <div class="preloader__inner">
       <img
-        src="assets/logo/ssl-logo-dourado.svg"
+        src="assets/logo/ssl-logo-oficial.png"
         alt="SSL Lingerie & Modas"
         class="preloader__logo"
-        width="140"
-        height="160"
+        width="1012"
+        height="336"
       >
       <p class="preloader__marca">SSL Lingerie &amp; Modas</p>
     </div>
@@ -83,18 +84,18 @@
 
       <a href="#hero" class="header__logo" aria-label="SSL Lingerie &amp; Modas — Ir para início">
         <img
-          src="assets/logo/ssl-logo-dourado.svg"
+          src="assets/logo/ssl-logo-oficial.png"
           alt="SSL Lingerie & Modas"
           class="header__logo-img"
-          width="80"
-          height="40"
+          width="1012"
+          height="336"
         >
       </a>
 
       <!-- Menu desktop -->
       <ul class="header__links" role="list">
         <li><a href="#hero" class="header__link">HOME</a></li>
-        <li><a href="#marca" class="header__link">MARCA</a></li>
+        <li><a href="#manifesto" class="header__link">A MARCA</a></li>
         <li><a href="#contato" class="header__link">CONTATO</a></li>
       </ul>
 
@@ -133,7 +134,7 @@
     <nav aria-label="Menu mobile">
       <ul class="nav-overlay__links" role="list">
         <li><a href="#hero" class="nav-overlay__link">HOME</a></li>
-        <li><a href="#marca" class="nav-overlay__link">MARCA</a></li>
+        <li><a href="#manifesto" class="nav-overlay__link">A MARCA</a></li>
         <li><a href="#contato" class="nav-overlay__link">CONTATO</a></li>
       </ul>
     </nav>
@@ -164,11 +165,21 @@
           aria-hidden="true"
           focusable="false"
         >
-          <!-- Curvas horizontais — animadas por js/svg-draw.js -->
-          <path class="svg-linha" d="M-60 160 Q300 60  720 220 Q1140 380 1500 140" fill="none" stroke-width="0.9"/>
-          <path class="svg-linha" d="M-60 420 Q360 280 720 440 Q1080 600 1500 380" fill="none" stroke-width="0.65"/>
-          <path class="svg-linha" d="M-60 640 Q420 500 840 660 Q1180 780 1500 600" fill="none" stroke-width="0.5"/>
-          <path class="svg-linha" d="M-60 820 Q500 700 960 840 Q1240 900 1500 780" fill="none" stroke-width="0.35"/>
+          <!-- Lençol drapeado — dobras de tecido convergem no topo central e se abrem -->
+          <!-- Eixo central: cai quase reto com leve oscilação -->
+          <path class="svg-linha" d="M718 0 C712 200 706 400 712 600 C718 750 716 860 713 920" fill="none" stroke-width="0.8"/>
+          <!-- Dobra 2 — esquerda próxima -->
+          <path class="svg-linha" d="M710 -10 C665 160 618 340 588 520 C562 670 570 800 556 930" fill="none" stroke-width="0.62"/>
+          <!-- Dobra 3 — esquerda média -->
+          <path class="svg-linha" d="M700 -20 C605 130 486 292 366 474 C264 624 216 762 178 940" fill="none" stroke-width="0.46"/>
+          <!-- Dobra 4 — esquerda longa -->
+          <path class="svg-linha" d="M690 -28 C558 162 358 332 168 524 C8 682 -42 812 -62 962" fill="none" stroke-width="0.3"/>
+          <!-- Dobra 5 — direita próxima -->
+          <path class="svg-linha" d="M728 -10 C778 160 838 342 868 522 C896 672 886 802 898 932" fill="none" stroke-width="0.62"/>
+          <!-- Dobra 6 — direita média -->
+          <path class="svg-linha" d="M738 -20 C858 132 1006 292 1128 472 C1236 632 1278 772 1308 940" fill="none" stroke-width="0.46"/>
+          <!-- Dobra 7 — direita longa -->
+          <path class="svg-linha" d="M748 -28 C938 172 1158 342 1338 522 C1468 662 1528 792 1548 962" fill="none" stroke-width="0.3"/>
         </svg>
       </div>
 
@@ -184,10 +195,6 @@
           A arte de vestir o que há de mais íntimo em você.
         </p>
 
-        <a href="#manifesto" class="hero__botao" aria-label="Explorar o site">
-          <span>EXPLORAR</span>
-          <span class="hero__botao-seta" aria-hidden="true">↓</span>
-        </a>
       </div>
 
       <!-- Indicador de scroll -->
@@ -204,6 +211,10 @@
       <div class="marquee-faixa__track">
         <span class="marquee-faixa__texto">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
         <span class="marquee-faixa__texto" aria-hidden="true">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
+        <span class="marquee-faixa__texto" aria-hidden="true">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
+        <span class="marquee-faixa__texto" aria-hidden="true">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
+        <span class="marquee-faixa__texto" aria-hidden="true">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
+        <span class="marquee-faixa__texto" aria-hidden="true">✦ LINGERIE ✦ MODA ✦ ELEGÂNCIA ✦ INTIMIDADE ✦ ARTE ✦ DELICADEZA ✦ CONFIANÇA ✦&nbsp;</span>
       </div>
     </div>
 
@@ -216,16 +227,6 @@
       class="manifesto"
       aria-labelledby="manifesto-label"
     >
-      <!-- Curvas douradas animadas — disparadas pelo scroll.js -->
-      <div class="manifesto__arte-linhas" data-svg-container aria-hidden="true">
-        <svg class="manifesto__svg-curvas" viewBox="0 0 1440 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-          <path class="svg-linha" d="M-60 80  Q360 10  720 100 Q1080 190 1500 60"  fill="none" stroke-width="0.7"/>
-          <path class="svg-linha" d="M-60 200 Q400 110 800 220 Q1100 300 1500 160" fill="none" stroke-width="0.5"/>
-          <path class="svg-linha" d="M-60 380 Q360 300 720 400 Q1100 490 1500 340" fill="none" stroke-width="0.6"/>
-          <path class="svg-linha" d="M-60 460 Q480 380 960 470 Q1240 520 1500 430" fill="none" stroke-width="0.35"/>
-        </svg>
-      </div>
-
       <!-- Padrão SVG de fundo — corações e arabescos em baixa opacidade -->
       <div class="manifesto__arte-fundo" aria-hidden="true">
         <img
@@ -263,8 +264,8 @@
     >
       <div class="filosofia__foto reveal-esquerda">
         <img
-          src="assets/images/filosofia.webp"
-          alt="Detalhes de lingerie da SSL com elegância editorial — tecido delicado e luz suave"
+          src="img/arte_site1.jpg"
+          alt="Modelo SSL Lingerie — Não deixe para amanhã a lingerie que você pode usar hoje"
           class="filosofia__foto-img"
           loading="lazy"
           width="600"
@@ -278,10 +279,30 @@
         <!-- Ornamento SVG — filete com diamante central -->
         <div class="filosofia__ornamento" aria-hidden="true">
           <svg viewBox="0 0 260 20" xmlns="http://www.w3.org/2000/svg">
-            <line x1="0"   y1="10" x2="110" y2="10" stroke="#c9a86a" stroke-width="0.8"/>
-            <polygon points="130,3 142,10 130,17 118,10" fill="none" stroke="#c9a86a" stroke-width="1"/>
-            <circle cx="130" cy="10" r="2" fill="#c9a86a"/>
-            <line x1="150" y1="10" x2="260" y2="10" stroke="#c9a86a" stroke-width="0.8"/>
+            <defs>
+              <radialGradient id="glow-fil" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#f0df98" stop-opacity="0.7"/>
+                <stop offset="100%" stop-color="#c8a038" stop-opacity="0"/>
+              </radialGradient>
+              <!-- Gradiente SMIL: varre da esquerda para direita SOMENTE nos traços -->
+              <linearGradient id="shimmer-fil" gradientUnits="userSpaceOnUse" x1="-50" y1="0" x2="10" y2="0">
+                <stop offset="0%" stop-color="#f8f0d8" stop-opacity="0"/>
+                <stop offset="50%" stop-color="#f8f0d8" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#f8f0d8" stop-opacity="0"/>
+                <animate attributeName="x1" values="-60;230" dur="10s" repeatCount="indefinite"/>
+                <animate attributeName="x2" values="0;290" dur="10s" repeatCount="indefinite"/>
+              </linearGradient>
+            </defs>
+            <!-- Traços base dourados -->
+            <line x1="0"   y1="10" x2="110" y2="10" stroke="#c8a038" stroke-width="0.8"/>
+            <polygon points="130,3 142,10 130,17 118,10" fill="none" stroke="#c8a038" stroke-width="1"/>
+            <circle cx="130" cy="10" r="18" fill="url(#glow-fil)"/>
+            <circle cx="130" cy="10" r="2" fill="#e8d080"/>
+            <line x1="150" y1="10" x2="260" y2="10" stroke="#c8a038" stroke-width="0.8"/>
+            <!-- Overlay shimmer — apenas nos traços desenhados -->
+            <line x1="0"   y1="10" x2="110" y2="10" stroke="url(#shimmer-fil)" stroke-width="2.5"/>
+            <polygon points="130,3 142,10 130,17 118,10" fill="none" stroke="url(#shimmer-fil)" stroke-width="2.5"/>
+            <line x1="150" y1="10" x2="260" y2="10" stroke="url(#shimmer-fil)" stroke-width="2.5"/>
           </svg>
         </div>
 
@@ -322,8 +343,8 @@
           <circle class="geo-ponto" cx="200" cy="392" r="3" opacity="0.7"/>
           <circle class="geo-ponto" cx="8"   cy="200" r="3" opacity="0.7"/>
           <!-- Cruz central fina -->
-          <line x1="200" y1="52"  x2="200" y2="348" stroke="#c9a86a" stroke-width="0.3" opacity="0.5"/>
-          <line x1="52"  y1="200" x2="348" y2="200" stroke="#c9a86a" stroke-width="0.3" opacity="0.5"/>
+          <line x1="200" y1="52"  x2="200" y2="348" stroke="#c8a038" stroke-width="0.3" opacity="0.5"/>
+          <line x1="52"  y1="200" x2="348" y2="200" stroke="#c8a038" stroke-width="0.3" opacity="0.5"/>
         </svg>
       </div>
 
@@ -352,8 +373,8 @@
 
         <div class="drama__foto reveal-direita">
           <img
-            src="assets/images/drama.webp"
-            alt="Detalhe de peça íntima com iluminação cinematográfica — luz lateral, sombras elegantes"
+            src="img/arte_site2.jpg"
+            alt="Modelo SSL Lingerie — Vista-se de si e brilhe"
             class="drama__foto-img"
             loading="lazy"
             width="520"
@@ -377,14 +398,45 @@
 
         <!-- Ornamento divisor com arabesco -->
         <div class="marca__ornamento" aria-hidden="true">
-          <svg viewBox="0 0 320 28" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 14 Q80 4 160 14 Q240 24 320 14" fill="none" stroke="#c9a86a" stroke-width="0.9"/>
-            <circle cx="60"  cy="12" r="2"   fill="#c9a86a" opacity="0.5"/>
-            <circle cx="160" cy="14" r="3"   fill="#c9a86a" opacity="0.7"/>
-            <circle cx="260" cy="16" r="2"   fill="#c9a86a" opacity="0.5"/>
-            <!-- Pequenos arabescos nos pontos laterais -->
-            <path d="M54 12 Q57 7 60 12" fill="none" stroke="#c9a86a" stroke-width="0.6"/>
-            <path d="M254 16 Q257 11 260 16" fill="none" stroke="#c9a86a" stroke-width="0.6"/>
+          <svg viewBox="0 0 320 30" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="glow-marc" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#f0df98" stop-opacity="0.75"/>
+                <stop offset="55%" stop-color="#c8a038" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#c8a038" stop-opacity="0"/>
+              </radialGradient>
+              <!-- Gradiente SMIL: varre da esquerda para direita SOMENTE nos traços -->
+              <linearGradient id="shimmer-marc" gradientUnits="userSpaceOnUse" x1="-60" y1="0" x2="20" y2="0">
+                <stop offset="0%" stop-color="#f8f0d8" stop-opacity="0"/>
+                <stop offset="50%" stop-color="#f8f0d8" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#f8f0d8" stop-opacity="0"/>
+                <animate attributeName="x1" values="-80;280" dur="10s" repeatCount="indefinite" begin="1.5s"/>
+                <animate attributeName="x2" values="0;360" dur="10s" repeatCount="indefinite" begin="1.5s"/>
+              </linearGradient>
+            </defs>
+            <!-- Traços base dourados -->
+            <line x1="0"   y1="12" x2="128" y2="12" stroke="#c8a038" stroke-width="0.7"/>
+            <line x1="0"   y1="17" x2="116" y2="17" stroke="#c8a038" stroke-width="0.32"/>
+            <path d="M116 17 Q122 14 128 12" fill="none" stroke="#c8a038" stroke-width="0.4"/>
+            <circle cx="160" cy="15" r="22" fill="url(#glow-marc)"/>
+            <line x1="160" y1="5"  x2="160" y2="25" stroke="#e8d080" stroke-width="0.85"/>
+            <line x1="149" y1="10" x2="171" y2="20" stroke="#e8d080" stroke-width="0.85"/>
+            <line x1="171" y1="10" x2="149" y2="20" stroke="#e8d080" stroke-width="0.85"/>
+            <circle cx="160" cy="15" r="4.5" fill="none" stroke="#e8d080" stroke-width="0.6"/>
+            <path d="M192 12 Q198 15 204 17" fill="none" stroke="#c8a038" stroke-width="0.4"/>
+            <line x1="204" y1="12" x2="320" y2="12" stroke="#c8a038" stroke-width="0.7"/>
+            <line x1="204" y1="17" x2="320" y2="17" stroke="#c8a038" stroke-width="0.32"/>
+            <!-- Overlay shimmer — apenas nos traços desenhados -->
+            <line x1="0"   y1="12" x2="128" y2="12" stroke="url(#shimmer-marc)" stroke-width="2"/>
+            <line x1="0"   y1="17" x2="116" y2="17" stroke="url(#shimmer-marc)" stroke-width="1.5"/>
+            <path d="M116 17 Q122 14 128 12" fill="none" stroke="url(#shimmer-marc)" stroke-width="1.5"/>
+            <line x1="160" y1="5"  x2="160" y2="25" stroke="url(#shimmer-marc)" stroke-width="2"/>
+            <line x1="149" y1="10" x2="171" y2="20" stroke="url(#shimmer-marc)" stroke-width="2"/>
+            <line x1="171" y1="10" x2="149" y2="20" stroke="url(#shimmer-marc)" stroke-width="2"/>
+            <circle cx="160" cy="15" r="4.5" fill="none" stroke="url(#shimmer-marc)" stroke-width="1.5"/>
+            <path d="M192 12 Q198 15 204 17" fill="none" stroke="url(#shimmer-marc)" stroke-width="1.5"/>
+            <line x1="204" y1="12" x2="320" y2="12" stroke="url(#shimmer-marc)" stroke-width="2"/>
+            <line x1="204" y1="17" x2="320" y2="17" stroke="url(#shimmer-marc)" stroke-width="1.5"/>
           </svg>
         </div>
 
@@ -475,8 +527,8 @@
       class="contato"
       aria-labelledby="contato-titulo"
     >
-      <!-- Linhas SVG de fundo — gerenciadas por js/svg-draw.js -->
-      <div class="contato__arte-svg" data-svg-container aria-hidden="true">
+      <!-- Ornamento botânico de fundo — gravura sutil, estático -->
+      <div class="contato__arte-svg" aria-hidden="true">
         <svg
           class="contato__svg-linhas"
           viewBox="0 0 1440 600"
@@ -485,10 +537,34 @@
           aria-hidden="true"
           focusable="false"
         >
-          <path class="svg-linha svg-linha--contato-1" d="M0 150 Q480 50 960 200 Q1200 280 1440 150" fill="none" stroke-width="0.8"/>
-          <path class="svg-linha svg-linha--contato-2" d="M0 400 Q360 300 720 420 Q1080 540 1440 380" fill="none" stroke-width="0.6"/>
-          <path class="svg-linha svg-linha--contato-3" d="M300 0 Q280 300 260 600" fill="none" stroke-width="0.5"/>
-          <path class="svg-linha svg-linha--contato-4" d="M1100 0 Q1120 300 1140 600" fill="none" stroke-width="0.5"/>
+          <!-- Ramo botânico — canto superior esquerdo -->
+          <path class="svg-org" d="M-20 -20 C20 60 40 140 20 220 C8 290 0 360 30 440" stroke-width="0.7"/>
+          <path class="svg-org" d="M20 140 C60 110 95 88 102 58" stroke-width="0.5"/>
+          <path class="svg-org" d="M102 58 C116 38 118 18 106 -2" stroke-width="0.35"/>
+          <path class="svg-org" d="M20 240 C64 218 94 194 112 162" stroke-width="0.45"/>
+          <path class="svg-org" d="M112 162 C132 128 136 96 122 74" stroke-width="0.35"/>
+          <path class="svg-org" d="M14 78 C28 64 44 68 42 82 C40 98 22 98 14 78 Z" stroke-width="0.4"/>
+          <path class="svg-org" d="M10 330 C26 314 42 320 38 336 C34 352 16 350 10 330 Z" stroke-width="0.4"/>
+          <!-- Ramo botânico — canto inferior direito -->
+          <path class="svg-org" d="M1460 620 C1418 540 1398 458 1420 376 C1434 318 1442 258 1410 178" stroke-width="0.7"/>
+          <path class="svg-org" d="M1420 460 C1378 438 1348 416 1336 384" stroke-width="0.5"/>
+          <path class="svg-org" d="M1336 384 C1322 358 1320 332 1334 310" stroke-width="0.35"/>
+          <path class="svg-org" d="M1420 376 C1376 354 1344 330 1326 298" stroke-width="0.45"/>
+          <path class="svg-org" d="M1428 520 C1414 504 1420 488 1434 498 C1448 512 1442 530 1428 520 Z" stroke-width="0.4"/>
+          <path class="svg-org" d="M1408 276 C1394 260 1402 244 1416 256 C1430 270 1422 286 1408 276 Z" stroke-width="0.4"/>
+          <!-- Linha tênue centralizada -->
+          <path class="svg-org" d="M280 540 C480 508 680 534 880 512 C1060 492 1180 522 1360 500" stroke-width="0.38"/>
+          <!-- Losangos decorativos dispersos -->
+          <path class="svg-org" d="M680 110 L692 124 L680 138 L668 124 Z" stroke-width="0.55"/>
+          <path class="svg-org" d="M960 382 L972 396 L960 410 L948 396 Z" stroke-width="0.5"/>
+          <path class="svg-org" d="M460 310 L470 322 L460 334 L450 322 Z" stroke-width="0.45"/>
+          <!-- Cruzes leves dispersas -->
+          <line class="svg-org" x1="820"  y1="196" x2="820"  y2="212" stroke-width="0.45"/>
+          <line class="svg-org" x1="812"  y1="204" x2="828"  y2="204" stroke-width="0.45"/>
+          <line class="svg-org" x1="1060" y1="438" x2="1060" y2="454" stroke-width="0.45"/>
+          <line class="svg-org" x1="1052" y1="446" x2="1068" y2="446" stroke-width="0.45"/>
+          <line class="svg-org" x1="340"  y1="172" x2="340"  y2="186" stroke-width="0.4"/>
+          <line class="svg-org" x1="333"  y1="179" x2="347"  y2="179" stroke-width="0.4"/>
         </svg>
       </div>
 
@@ -512,15 +588,9 @@
             rel="noopener noreferrer"
             aria-label="Falar com a SSL pelo WhatsApp — abre em nova aba"
           >
-            <img
-              src="assets/icons/whatsapp.svg"
-              alt=""
-              class="contato__btn-icone"
-              aria-hidden="true"
-              width="20"
-              height="20"
-              loading="lazy"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="contato__btn-icone" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
             <span>FALAR PELO WHATSAPP</span>
           </a>
 
@@ -531,21 +601,22 @@
             rel="noopener noreferrer"
             aria-label="Perfil da SSL no Instagram — abre em nova aba"
           >
-            <img
-              src="assets/icons/instagram.svg"
-              alt=""
-              class="contato__link-icone"
-              aria-hidden="true"
-              width="18"
-              height="18"
-              loading="lazy"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="contato__link-icone" aria-hidden="true" focusable="false">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
             <span>@ssl.lingerie</span>
           </a>
         </div>
 
         <p class="contato__telefone">
-          <a href="tel:+5521982059599">(21) 98205-9599</a>
+          <a href="tel:+5521982059599">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            (21) 98205-9599
+          </a>
         </p>
       </div>
     </section>
@@ -562,31 +633,25 @@
       <!-- Ornamento SVG sutil acima do logo -->
       <div class="footer__ornamento" aria-hidden="true">
         <svg viewBox="0 0 200 36" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 18 Q50 6 100 18 Q150 30 200 18" fill="none" stroke="#c9a86a" stroke-width="0.8"/>
-          <!-- Coração pequeno central -->
-          <path d="M100 8 C101.4 5 106 5 106 9 C106 13 100 16 100 16 C100 16 94 13 94 9 C94 5 98.6 5 100 8 Z" fill="#c9a86a"/>
-          <!-- Pontos laterais -->
-          <circle cx="42"  cy="16" r="1.5" fill="#c9a86a" opacity="0.6"/>
-          <circle cx="158" cy="20" r="1.5" fill="#c9a86a" opacity="0.6"/>
+          <path d="M0 18 Q50 6 100 18 Q150 30 200 18" fill="none" stroke="#c8a038" stroke-width="0.8"/>
+          <path d="M100 8 C101.4 5 106 5 106 9 C106 13 100 16 100 16 C100 16 94 13 94 9 C94 5 98.6 5 100 8 Z" fill="#c8a038"/>
+          <circle cx="42"  cy="16" r="1.5" fill="#c8a038" opacity="0.6"/>
+          <circle cx="158" cy="20" r="1.5" fill="#c8a038" opacity="0.6"/>
         </svg>
       </div>
 
       <a href="#hero" class="footer__logo" aria-label="SSL Lingerie &amp; Modas — Voltar ao topo">
         <img
-          src="assets/logo/ssl-logo-dourado.svg"
+          src="assets/logo/ssl-logo-oficial.png"
           alt="SSL Lingerie & Modas"
           class="footer__logo-img"
-          width="60"
-          height="30"
+          width="1012"
+          height="336"
           loading="lazy"
         >
       </a>
 
       <p class="footer__tagline">A arte de se vestir por dentro.</p>
-
-      <p class="footer__copy">
-        &copy; 2026 SSL Lingerie &amp; Modas &middot; Todos os direitos reservados
-      </p>
 
       <a
         href="https://instagram.com/ssl.lingerie"
@@ -597,6 +662,16 @@
       >
         @ssl.lingerie
       </a>
+
+      <p class="footer__copy">
+        &copy; 2026 SSL Lingerie &amp; Modas &middot; Todos os direitos reservados
+      </p>
+
+      <hr class="footer__divisor" aria-hidden="true">
+
+      <p class="footer__credit">
+        <a href="https://instagram.com/tattoo.jhonatan" target="_blank" rel="noopener noreferrer">Desenvolvido por Jhonatan Lopes</a>
+      </p>
 
     </div>
   </footer>

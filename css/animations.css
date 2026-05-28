@@ -28,10 +28,7 @@
   to   { transform: translateX(-50%); }
 }
 
-/* Pausa ao hover — permite leitura */
-.marquee-faixa:hover .marquee-faixa__track {
-  animation-play-state: paused;
-}
+
 
 
 /* --------------------------------------------------------
@@ -111,6 +108,29 @@
 }
 
 
+
+/* --------------------------------------------------------
+   SHIMMER — faixa de luz que varre o hero
+   Ciclo de 10s: SSL primeiro (0→35%), depois lingerie (38→75%).
+   Ornamentos usam animação SMIL diretamente no SVG.
+-------------------------------------------------------- */
+
+/* SSL (hero): varre primeiro — 0% a 35% do ciclo de 10s */
+@keyframes shimmer-ssl {
+  0%   { background-position: 200% center, 0 0; }
+  35%  { background-position: -100% center, 0 0; }
+  100% { background-position: -100% center, 0 0; }
+}
+
+/* "lingerie & modas" (hero): aguarda SSL terminar, varre 38%→75% */
+@keyframes shimmer-script {
+  0%   { background-position: 200% center, 0 0; }
+  38%  { background-position: 200% center, 0 0; }
+  75%  { background-position: -100% center, 0 0; }
+  100% { background-position: -100% center, 0 0; }
+}
+
+
 /* --------------------------------------------------------
    DRAMA — rotação lenta das formas geométricas
    (Pausa em prefers-reduced-motion no bloco final)
@@ -118,44 +138,6 @@
 @keyframes geo-girar {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
-}
-
-
-/* --------------------------------------------------------
-   CURSOR CUSTOMIZADO — círculo dourado (desktop)
-   Criado via JS em main.js.
--------------------------------------------------------- */
-.cursor-custom {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  background-color: var(--dourado);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: calc(var(--z-preloader) + 1);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition:
-    opacity     0.3s,
-    width       0.25s var(--ease-out),
-    height      0.25s var(--ease-out),
-    background  0.25s var(--ease-out),
-    border      0.25s var(--ease-out);
-  will-change: transform;
-}
-
-.cursor-custom.cursor-visivel {
-  opacity: 0.65;
-}
-
-.cursor-custom.cursor-hover {
-  width: 28px;
-  height: 28px;
-  opacity: 0.3;
-  background-color: transparent;
-  border: 1px solid var(--dourado-claro);
 }
 
 
@@ -192,6 +174,13 @@
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+
+  /* Shimmer hero — remove varredura (-100% esconde a faixa branca) */
+  .hero__wordmark-ssl,
+  .hero__wordmark-script {
+    animation: none !important;
+    background-position: -100% center, 0 0 !important;
   }
 
   /* Geometria drama — para rotação */

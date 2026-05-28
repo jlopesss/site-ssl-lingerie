@@ -21,12 +21,13 @@
   --preto:               #000000;   /* seção drama (partículas) */
 
   /* Dourado — protagonista de luz */
-  --dourado:             #c9a86a;   /* destaque principal */
-  --dourado-claro:       #e0c896;   /* brilho / hover / texto pequeno */
-  --dourado-escuro:      #a8884e;   /* detalhes sobre fundo claro */
+  --dourado:             #c8a038;   /* destaque principal — âmbar-ouro quente */
+  --dourado-claro:       #e0b850;   /* brilho / hover / texto pequeno */
+  --dourado-escuro:      #a07e1e;   /* detalhes sobre fundo claro */
 
   /* Claros — respiro pontual (só na seção Contato) */
-  --off-white:           #f4f1ea;   /* fundo claro + texto sobre escuro */
+  --off-white:           #f4f1ea;   /* texto sobre escuro */
+  --creme-sec:           #e8dfc8;   /* fundo seção Contato — marfim quente */
   --branco:              #ffffff;
 
   /* Texto */
@@ -122,7 +123,7 @@
   --max-width:          1280px;
   --content-width:      680px;
   --content-narrow:     520px;
-  --header-height:      5rem;
+  --header-height:      5rem;   /* mobile — logo ~56px */
   --margem-lateral:     clamp(1.25rem, 5vw, 4rem);
 
 
@@ -142,8 +143,8 @@
   --sombra-suave:       0 4px 24px rgba(0, 0, 0, 0.30);
   --sombra-media:       0 8px 40px rgba(0, 0, 0, 0.50);
   --sombra-forte:       0 16px 64px rgba(0, 0, 0, 0.70);
-  --brilho-dourado:     0 0 40px rgba(201, 168, 106, 0.20);
-  --brilho-dourado-fx:  0 0 80px rgba(224, 200, 150, 0.15);
+  --brilho-dourado:     0 0 60px rgba(200, 160, 56, 0.42);
+  --brilho-dourado-fx:  0 0 120px rgba(224, 184, 80, 0.26);
 
   /* Backdrop blur (header ao rolar) */
   --blur-header:        blur(12px) saturate(150%);
@@ -174,6 +175,24 @@
   --z-header:          100;
   --z-overlay:         200;
   --z-preloader:       999;
+
+
+  /* --------------------------------------------------------
+     GRADIENTE METÁLICO — dourado polido (texto + bordas)
+  -------------------------------------------------------- */
+
+  --gradiente-dourado:
+    linear-gradient(135deg,
+      #f0df98  0%,
+      #d4b45c 12%,
+      #c9a86a 26%,
+      #a8884e 44%,
+      #9e7c38 50%,
+      #a8884e 56%,
+      #c9a86a 72%,
+      #d4b45c 88%,
+      #f0df98 100%
+    );
 
 
   /* --------------------------------------------------------

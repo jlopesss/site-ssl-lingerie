@@ -1,18 +1,61 @@
-<svg width="280" height="320" viewBox="0 0 340 380" role="img" xmlns="http://www.w3.org/2000/svg">
-<title>SSL Lingerie & Modas — monograma (versão dourada)</title>
-<desc>Dois esses espelhados sobre volutas simétricas com coração central e wordmark SSLINGERIE & MODAS</desc>
-<g transform="translate(170, 130)" fill="none" stroke="#c9a86a" stroke-width="7" stroke-linecap="round">
-  <path d="M -18 -120 C -54 -120 -54 -78 -22 -74 C 4 -71 8 -40 -20 -34"/>
-  <path d="M 18 -120 C 54 -120 54 -78 22 -74 C -4 -71 -8 -40 20 -34"/>
+<svg viewBox="0 0 500 278" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>SSL Lingerie &amp; Modas</title>
+<desc>Logotipo SSL Lingerie &amp; Modas — monograma SS com arabescos, anel dourado e ondas decorativas</desc>
+
+<!-- Ondas decorativas — ESQUERDA -->
+<path d="M138 127 Q108 117 78 121 Q53 124 28 119 Q13 117 0 119" fill="none" stroke="#c9a86a" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+<path d="M138 147 Q108 157 78 153 Q53 150 28 155 Q13 157 0 155" fill="none" stroke="#c9a86a" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+
+<!-- Ondas decorativas — DIREITA -->
+<path d="M362 127 Q392 117 422 121 Q447 124 472 119 Q487 117 500 119" fill="none" stroke="#c9a86a" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+<path d="M362 147 Q392 157 422 153 Q447 150 472 155 Q487 157 500 155" fill="none" stroke="#c9a86a" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+
+<!-- Anel externo dourado -->
+<circle cx="250" cy="137" r="112" fill="none" stroke="#c9a86a" stroke-width="3"/>
+<!-- Anel interno fino -->
+<circle cx="250" cy="137" r="106" fill="none" stroke="#c9a86a" stroke-width="0.6" opacity="0.4"/>
+
+<!-- Monograma SS + arabescos — paths fiéis ao original, em branco -->
+<g transform="translate(250, 103) scale(0.55)" fill="none" stroke="#ffffff" stroke-linecap="round">
+  <!-- S esquerdo -->
+  <path d="M -18 -120 C -54 -120 -54 -78 -22 -74 C 4 -71 8 -40 -20 -34" stroke-width="7"/>
+  <!-- S direito -->
+  <path d="M 18 -120 C 54 -120 54 -78 22 -74 C -4 -71 -8 -40 20 -34" stroke-width="7"/>
+  <!-- Voluta esquerda -->
   <path d="M -20 -34 C -70 -22 -120 -10 -150 26 C -132 8 -96 4 -70 20 C -50 32 -40 36 -22 30" stroke-width="5"/>
+  <!-- Voluta direita -->
   <path d="M 20 -34 C 70 -22 120 -10 150 26 C 132 8 96 4 70 20 C 50 32 40 36 22 30" stroke-width="5"/>
+  <!-- Ponta esquerda -->
   <path d="M -150 26 C -166 34 -176 50 -172 66 C -160 56 -150 56 -146 44" stroke-width="4"/>
+  <!-- Ponta direita -->
   <path d="M 150 26 C 166 34 176 50 172 66 C 160 56 150 56 146 44" stroke-width="4"/>
+  <!-- Ricacho interno esquerda -->
   <path d="M -70 20 C -54 30 -40 44 -34 60 C -44 52 -58 50 -66 56" stroke-width="3.5"/>
+  <!-- Ricacho interno direita -->
   <path d="M 70 20 C 54 30 40 44 34 60 C 44 52 58 50 66 56" stroke-width="3.5"/>
-  <path d="M 0 18 C -26 18 -34 44 -16 58 C -6 66 0 70 0 80 C 0 70 6 66 16 58 C 34 44 26 18 0 18 Z" fill="#c9a86a" stroke="none"/>
+  <!-- Coração central -->
+  <path d="M 0 18 C -26 18 -34 44 -16 58 C -6 66 0 70 0 80 C 0 70 6 66 16 58 C 34 44 26 18 0 18 Z" fill="#ffffff" stroke="none"/>
 </g>
-<text x="170" y="310" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="46" letter-spacing="2" fill="#c9a86a">SS<tspan font-size="36">LINGERIE</tspan></text>
-<line x1="70" y1="335" x2="270" y2="335" stroke="#c9a86a" stroke-width="1.5"/>
-<text x="170" y="370" text-anchor="middle" font-family="Georgia, serif" font-size="20" letter-spacing="6" fill="#c9a86a">&amp; MODAS</text>
+
+<!-- SSLINGERIE -->
+<text x="250" y="191"
+  text-anchor="middle"
+  font-family="Georgia, 'Times New Roman', serif"
+  font-size="20"
+  letter-spacing="1.5"
+  fill="#ffffff">SS<tspan font-size="15">LINGERIE</tspan></text>
+
+<!-- Linha separadora -->
+<line x1="216" y1="199" x2="284" y2="199" stroke="#c9a86a" stroke-width="0.8"/>
+
+<!-- &amp; MODAS -->
+<text x="250" y="212"
+  text-anchor="middle"
+  font-family="Georgia, serif"
+  font-size="10"
+  letter-spacing="3.5"
+  fill="#ffffff">&amp; MODAS</text>
+
+<!-- Arabesco inferior -->
+<path d="M234 224 Q240 219 246 224 Q250 228 254 224 Q260 219 266 224" fill="none" stroke="#c9a86a" stroke-width="0.8" opacity="0.65"/>
 </svg>

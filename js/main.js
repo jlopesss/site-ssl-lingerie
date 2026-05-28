@@ -89,6 +89,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* --------------------------------------------------
+     SMIL — pausa animações SVG em prefers-reduced-motion
+  -------------------------------------------------- */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.filosofia__ornamento svg, .marca__ornamento svg').forEach(svg => {
+      if (svg.pauseAnimations) svg.pauseAnimations();
+    });
+  }
+
+
+  /* --------------------------------------------------
      SMOOTH SCROLL — links âncora internos
   -------------------------------------------------- */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
@@ -100,50 +110,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-
-  /* --------------------------------------------------
-     CURSOR CUSTOMIZADO (apenas desktop, não-touch)
-  -------------------------------------------------- */
-  const semTouch = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  if (semTouch) {
-    const cursor = document.createElement('div');
-    cursor.classList.add('cursor-custom');
-    document.body.appendChild(cursor);
-
-    let cx = 0, cy = 0;
-    let rafId = null;
-
-    document.addEventListener('mousemove', (e) => {
-      cx = e.clientX;
-      cy = e.clientY;
-
-      if (!rafId) {
-        rafId = requestAnimationFrame(() => {
-          cursor.style.transform = `translate(calc(${cx}px - 50%), calc(${cy}px - 50%))`;
-          rafId = null;
-        });
-      }
-
-      cursor.classList.add('cursor-visivel');
-    });
-
-    document.addEventListener('mouseleave', () => {
-      cursor.classList.remove('cursor-visivel');
-    });
-
-    // Expande ao passar sobre links e botões
-    const interativos = 'a, button, [role="button"]';
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(interativos)) {
-        cursor.classList.add('cursor-hover');
-      }
-    });
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(interativos)) {
-        cursor.classList.remove('cursor-hover');
-      }
-    });
-  }
 
 });

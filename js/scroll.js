@@ -49,22 +49,38 @@
 
   /* --------------------------------------------------
      ACTIVE LINK — destaca seção atual no header
+     "A MARCA" (#manifesto) permanece ativo enquanto
+     o usuário percorre manifesto → universo.
   -------------------------------------------------- */
   const observarSecaoAtiva = () => {
     const secoes = document.querySelectorAll('section[id]');
     const links  = document.querySelectorAll('.header__link');
     if (!secoes.length || !links.length) return;
 
+    const mapaSecaoLink = {
+      hero:      '#hero',
+      manifesto: '#manifesto',
+      filosofia: '#manifesto',
+      drama:     '#manifesto',
+      marca:     '#manifesto',
+      universo:  '#manifesto',
+      contato:   '#contato',
+    };
+
+    const ativarLink = (href) => {
+      links.forEach(link => {
+        link.setAttribute('aria-current',
+          link.getAttribute('href') === href ? 'page' : 'false');
+      });
+    };
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const id = entry.target.id;
-        links.forEach(link => {
-          const href = link.getAttribute('href')?.replace('#', '');
-          link.setAttribute('aria-current', href === id ? 'page' : 'false');
-        });
+        const hrefAlvo = mapaSecaoLink[entry.target.id];
+        if (hrefAlvo) ativarLink(hrefAlvo);
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0, rootMargin: '0px 0px -70% 0px' });
 
     secoes.forEach(s => observer.observe(s));
   };
