@@ -24,7 +24,7 @@ var T2 = 0.40;     // velocidade onda 2  [0.8–2.0]
 var T3 = 0.28;     // velocidade onda 3  [0.5–1.5]
 
 // Cores do tecido (vec3 linear, formato "R, G, B")
-var COR_VALE   = '0.047, 0.082, 0.200';  // #0c1533 — vales (sombra entre dobras)
+var COR_VALE   = '0.051, 0.106, 0.243';  // #0d1b3e — vales (azul profundo, não preto)
 var COR_CRISTA = '0.102, 0.176, 0.361';  // #1a2d5c — cristas (luz nas dobras)
 
 // Especular — reflexo nas cristas (cetim/seda)
