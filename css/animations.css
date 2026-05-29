@@ -67,17 +67,17 @@
 /* Estado inicial invisível — só com JS */
 .js .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(36px);
 }
 
 .js .reveal-esquerda {
   opacity: 0;
-  transform: translateX(-32px);
+  transform: translateX(-38px);
 }
 
 .js .reveal-direita {
   opacity: 0;
-  transform: translateX(32px);
+  transform: translateX(38px);
 }
 
 /* Estado final — visível */
@@ -90,10 +90,10 @@
 }
 
 /* Delays escalonados para grids de cards */
-.reveal-delay-1 { transition-delay: 0.08s; }
-.reveal-delay-2 { transition-delay: 0.18s; }
-.reveal-delay-3 { transition-delay: 0.28s; }
-.reveal-delay-4 { transition-delay: 0.38s; }
+.reveal-delay-1 { transition-delay: 0.10s; }
+.reveal-delay-2 { transition-delay: 0.22s; }
+.reveal-delay-3 { transition-delay: 0.34s; }
+.reveal-delay-4 { transition-delay: 0.46s; }
 
 
 /* --------------------------------------------------------
@@ -148,7 +148,8 @@
 /* Estado inicial: arcos ocultos */
 .header__logo-ring .anel-glow,
 .header__logo-ring .anel-meio,
-.header__logo-ring .anel-nucleo {
+.header__logo-ring .anel-nucleo,
+.header__logo-ring .anel-spark {
   opacity: 0;
   stroke-dashoffset: 0;
 }
@@ -158,19 +159,25 @@
    em ambas as extremidades → fade natural nas pontas sem linecap arredondado.
    Circunferência: 2π × 138 ≈ 867 unidades SVG */
 @keyframes anel-glow-fx {
-  0%   { stroke-dashoffset: -100; opacity: 0.20; }
-  82%  { stroke-dashoffset: -790; opacity: 0.16; }
+  0%   { stroke-dashoffset: -100; opacity: 0.32; }
+  82%  { stroke-dashoffset: -790; opacity: 0.22; }
   100% { stroke-dashoffset: -942; opacity: 0;    }
 }
 @keyframes anel-meio-fx {
-  0%   { stroke-dashoffset:  -50; opacity: 0.55; }
-  82%  { stroke-dashoffset: -740; opacity: 0.38; }
+  0%   { stroke-dashoffset:  -50; opacity: 0.72; }
+  82%  { stroke-dashoffset: -740; opacity: 0.50; }
   100% { stroke-dashoffset: -892; opacity: 0;    }
 }
 @keyframes anel-nucleo-fx {
-  0%   { stroke-dashoffset:    0; opacity: 0.90; }
-  82%  { stroke-dashoffset: -690; opacity: 0.65; }
+  0%   { stroke-dashoffset:    0; opacity: 1.00; }
+  82%  { stroke-dashoffset: -690; opacity: 0.75; }
   100% { stroke-dashoffset: -842; opacity: 0;    }
+}
+/* Spark: ponto branco-puro no centro do arco → sensação de reflexo metálico */
+@keyframes anel-spark-fx {
+  0%   { stroke-dashoffset:  -59; opacity: 1.00; }
+  82%  { stroke-dashoffset: -749; opacity: 0.85; }
+  100% { stroke-dashoffset: -901; opacity: 0;    }
 }
 
 .header__logo-ring.is-animando .anel-glow {
@@ -181,6 +188,9 @@
 }
 .header__logo-ring.is-animando .anel-nucleo {
   animation: anel-nucleo-fx 2.5s ease-out forwards;
+}
+.header__logo-ring.is-animando .anel-spark {
+  animation: anel-spark-fx  2.5s ease-out forwards;
 }
 
 

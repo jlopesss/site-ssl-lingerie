@@ -161,7 +161,7 @@
   --t-rapida:           0.18s var(--ease-out);
   --t-media:            0.40s var(--ease-out);
   --t-lenta:            0.80s var(--ease-out);
-  --t-reveal:           1.0s var(--ease-in-out);
+  --t-reveal:           0.85s var(--ease-out);
 
 
   /* --------------------------------------------------------

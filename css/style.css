@@ -922,12 +922,21 @@ body {
    CONTATO — ÚNICA seção clara (off-white)
 -------------------------------------------------------- */
 .contato {
-  background-color: #c8bda4;
+  background: linear-gradient(135deg,
+    #d4b45c  0%,
+    #c9a86a 18%,
+    #b09040 35%,
+    #e8d080 50%,
+    #b09040 65%,
+    #c9a86a 82%,
+    #d4b45c 100%
+  );
   color: var(--texto-escuro);
   padding-block: var(--espaco-section);
   position: relative;
   overflow: hidden;
 }
+
 
 .contato__arte-svg {
   position: absolute;
@@ -960,8 +969,46 @@ body {
 }
 
 .contato__label {
+  display: inline-flex;
+  align-items: center;
   font-size: var(--txt-label);
-  color: var(--dourado-escuro);
+  padding: 0.25em 0.6em;
+  background-color: var(--azul-abissal);
+  align-self: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine sweep — idêntico ao botão WhatsApp */
+.contato__label::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: -50%;
+  width: 40%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 50%,
+    transparent 100%
+  );
+  transform: skewX(-40deg);
+  pointer-events: none;
+  animation: shine-label 9s ease-in-out infinite;
+}
+
+/* Gradiente metálico no texto */
+.contato__label span {
+  background: var(--gradiente-dourado);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes shine-label {
+  0%   { left: -50%; }
+  35%  { left: 160%; }
+  100% { left: 160%; }
 }
 
 /* Endereço em destaque — serifada itálico */
@@ -1120,7 +1167,9 @@ body {
   border-top: 1px solid rgba(201, 168, 106, 0.15);
   padding-top: var(--sp-12);
   padding-bottom: var(--sp-4);
+  position: relative;
 }
+
 
 .footer__content {
   max-width: var(--max-width);
@@ -1462,19 +1511,23 @@ body {
     radial-gradient(ellipse 50% 35% at 10% 85%, rgba(200, 160,  56, 0.045) 0%, transparent 60%);
 }
 
-/* Filosofia: vinheta topo-direito + faísca dourada baixo-esquerdo */
+/* Filosofia: vinheta topo-direito + faísca dourada baixo-esquerdo
+   + Drama invadindo pela base.
+   z-index: 2 necessário para cobrir .filosofia__foto (position:relative)
+   e .filosofia__bloco-texto (background sólido) que ficam acima de z-index:0 */
 .filosofia::before {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
   background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.22) 12%, transparent 26%),
     radial-gradient(ellipse 50% 60% at 90%  5%, rgba( 22,  38,  79, 0.50)  0%, transparent 65%),
     radial-gradient(ellipse 40% 50% at  5% 90%, rgba(200, 160,  56, 0.04)  0%, transparent 60%);
 }
 
-/* Drama: brilho dourado baixo-esquerdo + faísca alto-direito */
+/* Drama: preto puro no topo (sem invasão de azul) + brilho dourado baixo-esquerdo */
 .drama::before {
   content: '';
   position: absolute;
@@ -1486,7 +1539,7 @@ body {
     radial-gradient(ellipse 45% 45% at 90%  8%, rgba(200, 160,  56, 0.03)  0%, transparent 55%);
 }
 
-/* Marca: vinheta azul alto-esquerdo + faísca dourada baixo-direito */
+/* Marca: transição gradual vindo do Drama/preto (topo) — multi-step para fade mais natural */
 .marca::before {
   content: '';
   position: absolute;
@@ -1494,9 +1547,22 @@ body {
   z-index: 0;
   pointer-events: none;
   background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.42) 18%, transparent 42%),
     radial-gradient(ellipse 55% 45% at  5%  5%, rgba( 10,  20,  48, 0.65)  0%, transparent 60%),
     radial-gradient(ellipse 40% 40% at 95% 92%, rgba(200, 160,  56, 0.035) 0%, transparent 60%);
 }
+
+/* Universo: transição de cor vindo da Marca (topo) */
+.universo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(10, 20, 48, 0.55), transparent 20%);
+}
+
 
 
 /* — Grão: SVG feTurbulence tileable via ::after —
