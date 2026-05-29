@@ -231,6 +231,78 @@
 
 
 /* ============================================================
+   FASE 6 — Reveal de texto sofisticado
+============================================================ */
+
+/* Manifesto: container revela só com transform — sem opacity.
+   Assim as linhas internas animam a própria opacidade sem conflito
+   (opacidade CSS é multiplicativa; se o pai for 0, os filhos somem). */
+.js .manifesto__content.reveal {
+  opacity: 1;
+}
+
+/* Linhas iniciam ocultas */
+.js .manifesto__linha {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity   0.65s var(--ease-out),
+    transform 0.65s var(--ease-out);
+}
+
+/* Disparo: .linhas-visiveis adicionado via texto-reveal.js (com pequeno delay) */
+.js .manifesto__frase.linhas-visiveis .manifesto__linha {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--i, 0) * 0.24s);
+}
+
+
+/* --- Títulos: palavra por palavra --- */
+@keyframes palavra-emerge {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes em-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Palavras e <em> iniciam invisíveis */
+.js .palavra {
+  display: inline-block;
+  opacity: 0;
+}
+
+.js .filosofia__frase em,
+.js .drama__titulo    em,
+.js .marca__titulo    em {
+  opacity: 0;
+}
+
+/* Disparo: palavras surgem em stagger quando .palavras-visiveis é adicionado */
+.js .palavras-visiveis .palavra {
+  animation: palavra-emerge 0.50s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 0.055s + 0.10s);
+}
+
+/* <em> surge após as palavras como unidade (delay calculado em JS via --em-delay) */
+.js .filosofia__frase.palavras-visiveis em,
+.js .drama__titulo.palavras-visiveis    em,
+.js .marca__titulo.palavras-visiveis    em {
+  animation: em-fade 0.60s var(--ease-out) both;
+  animation-delay: var(--em-delay, 0.35s);
+}
+
+
+/* ============================================================
    PREFERS-REDUCED-MOTION
    Desativa todas as animações para quem preferir.
    Os !important nas linhas SVG sobrescrevem inline styles do JS.
@@ -311,6 +383,33 @@
   .contato__btn-whatsapp::before {
     transition: none !important;
     display: none !important;
+  }
+
+  /* Fase 6 — mostra texto imediatamente, sem fragmentação */
+  .js .manifesto__content.reveal {
+    opacity: 1 !important;
+  }
+
+  .js .manifesto__linha {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .js .manifesto__frase.linhas-visiveis .manifesto__linha {
+    transition-delay: 0s !important;
+  }
+
+  .js .palavra {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .js .filosofia__frase em,
+  .js .drama__titulo    em,
+  .js .marca__titulo    em {
+    opacity: 1 !important;
+    animation: none !important;
   }
 
 }
