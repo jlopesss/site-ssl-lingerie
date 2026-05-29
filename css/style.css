@@ -1151,12 +1151,6 @@ body {
   color: transparent;
 }
 
-@keyframes shine-label {
-  0%   { left: -50%; }
-  35%  { left: 160%; }
-  100% { left: 160%; }
-}
-
 /* Endereço em destaque — serifada itálico */
 .contato__endereco {
   font-family: var(--fonte-display);

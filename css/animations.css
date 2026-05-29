@@ -110,6 +110,17 @@
 
 
 /* --------------------------------------------------------
+   SHINE LABEL — faixa de luz que cruza o label "VISITE A LOJA"
+   e qualquer .contato__label::before
+-------------------------------------------------------- */
+@keyframes shine-label {
+  0%   { left: -50%; }
+  35%  { left: 160%; }
+  100% { left: 160%; }
+}
+
+
+/* --------------------------------------------------------
    SHIMMER — faixa de luz que varre o hero
    Ciclo de 10s: SSL primeiro (0→35%), depois lingerie (38→75%).
    Ornamentos usam animação SMIL diretamente no SVG.
@@ -380,7 +391,8 @@
 
   .universo__card::before,
   .universo__destaque::before,
-  .contato__btn-whatsapp::before {
+  .contato__btn-whatsapp::before,
+  .contato__label::before {
     transition: none !important;
     display: none !important;
   }
