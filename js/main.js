@@ -15,11 +15,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ocultarPreloader = () => {
     if (!preloader) return;
-    preloader.classList.add('is-oculto');
-    // Remove do fluxo após a transição CSS (0.7s)
-    preloader.addEventListener('transitionend', () => {
-      preloader.remove();
-    }, { once: true });
+
+    const logo          = preloader.querySelector('.preloader__logo');
+    const marca         = preloader.querySelector('.preloader__marca');
+    const headerLogoImg = document.querySelector('.header__logo-img');
+
+    // prefers-reduced-motion ou elementos ausentes → fade simples
+    if (!logo || !headerLogoImg ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      preloader.classList.add('is-oculto');
+      preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
+      return;
+    }
+
+    // Mede posições antes de qualquer transform
+    const logoRect   = logo.getBoundingClientRect();
+    const headerRect = headerLogoImg.getBoundingClientRect();
+
+    const dx     = (headerRect.left + headerRect.width  / 2) - (logoRect.left + logoRect.width  / 2);
+    const dy     = (headerRect.top  + headerRect.height / 2) - (logoRect.top  + logoRect.height / 2);
+    const escala = headerRect.width / logoRect.width;
+
+    // Oculta o logo do header: reaparece durante o fade do fundo
+    headerLogoImg.style.opacity = '0';
+
+    // Aguarda 500ms extras com logo visível, depois inicia a saída
+    setTimeout(() => {
+
+      // Marca some primeiro — cancela fill:forwards e inicia fade imediatamente
+      if (marca) {
+        marca.style.opacity    = '1';
+        marca.style.animation  = 'none';
+        marca.style.transition = 'opacity 0.30s ease-out';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { marca.style.opacity = '0'; });
+        });
+      }
+
+      // Logo voa 120ms depois — dá tempo da marca já estar desaparecendo
+      setTimeout(() => {
+        logo.style.opacity         = '1';
+        logo.style.transform       = 'none';
+        logo.style.animation       = 'none';
+        logo.style.transition      = 'transform 0.60s cubic-bezier(0.4, 0, 0.2, 1)';
+        logo.style.transformOrigin = 'center center';
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            logo.style.transform = `translate(${dx}px, ${dy}px) scale(${escala})`;
+          });
+        });
+      }, 120);
+
+      // Após o logo chegar: fundo dissolve, logo do header aparece
+      // — a transição opacity no preloader dispara o anel em brilhos.js
+      // (630ms de voo + 120ms de head start da marca = 750ms)
+      setTimeout(() => {
+        preloader.style.transition = 'opacity 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.45s';
+        preloader.style.opacity    = '0';
+        preloader.style.visibility = 'hidden';
+
+        headerLogoImg.style.transition = 'opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        headerLogoImg.style.opacity    = '1';
+      }, 750);
+
+      // Remove o preloader do DOM
+      setTimeout(() => preloader.remove(), 1250);
+
+    }, 300);
   };
 
   if (document.readyState === 'complete') {

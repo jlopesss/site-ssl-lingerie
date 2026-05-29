@@ -85,7 +85,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.7s var(--ease-out), visibility 0.7s;
+  /* Transição usada apenas no fallback (prefers-reduced-motion / sem JS).
+     No fluxo cinematográfico, main.js define transition via inline style. */
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.7s;
 }
 
 .preloader.is-oculto {
@@ -113,7 +115,7 @@ body {
   font-size: var(--txt-label);
   color: var(--dourado);
   opacity: 0;
-  animation: preloader-aparecer 0.6s var(--ease-out) 0.7s forwards;
+  animation: preloader-aparecer 0.5s var(--ease-out) 0.35s forwards;
 }
 
 
