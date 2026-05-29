@@ -778,145 +778,289 @@ body {
 
 
 /* --------------------------------------------------------
-   UNIVERSO SSL — grid 2×2 de pilares
+   UNIVERSO SSL — scroll horizontal (vitrine de painéis)
+   Desktop: scroll vertical → translateX no track (sticky).
+   Mobile: scroll-snap horizontal nativo.
 -------------------------------------------------------- */
+
+/* Wrapper: height definida por JS para criar o espaço de scroll */
 .universo {
-  background-color: var(--azul-profundo);
-  padding-block: var(--espaco-section);
+  background-color: var(--azul-abissal);
   position: relative;
+  /* sem overflow:hidden — impede position:sticky no filho */
+}
+
+/* Janela sticky que ocupa 100vh e cobre o track */
+.universo__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
 }
 
-.universo__header {
-  max-width: var(--max-width);
-  margin-inline: auto;
-  padding-inline: var(--margem-lateral);
-  margin-bottom: var(--sp-10);
-}
-
-.universo__label {
-  font-size: var(--txt-label);
-  color: var(--dourado);
-}
-
-.universo__grid {
-  max-width: var(--max-width);
-  margin-inline: auto;
-  padding-inline: var(--margem-lateral);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-3);
-}
-
-.universo__card {
-  background-color: var(--azul-medio);
-  border-top: 2px solid transparent;
-  border-image: linear-gradient(to right, #8c7040 0%, #e0c896 30%, #f5e7c3 50%, #e0c896 70%, #8c7040 100%) 1;
-  padding: var(--sp-8) var(--sp-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-  position: relative;
-  overflow: hidden;
-  transition: background-color var(--t-media), box-shadow var(--t-media);
-}
-
-/* Shine sweep — faixa diagonal (~30°) apenas na entrada do hover */
-.universo__card::before {
-  content: '';
+/* HUD — label + barra de progresso, canto superior */
+.universo__hud {
   position: absolute;
-  inset-block: 0;
-  left: -50%;
-  width: 40%;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    transparent 100%
-  );
-  transform: skewX(-40deg);
+  top: clamp(1.25rem, 3vh, 2rem);
+  inset-inline: clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  z-index: 10;
   pointer-events: none;
 }
 
-.universo__card:hover::before {
-  left: 160%;
-  transition: left 2.2s var(--ease-out);
+.universo__label {
+  font-family: var(--fonte-sans);
+  font-size: var(--txt-label);
+  letter-spacing: 0.14em;
+  color: var(--dourado);
+  white-space: nowrap;
 }
 
-.universo__card:hover {
-  box-shadow: inset 0 0 0 1px rgba(201, 168, 106, 0.2);
+/* Barra de progresso */
+.universo__progresso {
+  flex: 1;
+  height: 1px;
+  background: rgba(200, 160, 56, 0.20);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.universo__progresso-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    to right,
+    #8c7040 0%,
+    #e0c896 40%,
+    #f5e7c3 60%,
+    #e0c896 80%,
+    #8c7040 100%
+  );
+  transition: width 0.1s linear;
+  border-radius: 1px;
+}
+
+/* Track: flex row — JS aplica translateX */
+.universo__track {
+  display: flex;
+  height: 100vh;
+  will-change: transform;
+}
+
+/* Painel individual */
+.universo__painel {
+  flex: 0 0 clamp(300px, 38vw, 560px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem, 5vh, 4rem) clamp(2rem, 4vw, 3.5rem);
+  border-right: 1px solid rgba(200, 160, 56, 0.10);
+  background-color: var(--azul-abissal);
+  position: relative;
+  overflow: hidden;
+  transition: background-color var(--t-media);
+}
+
+/* Número decorativo em background */
+.universo__painel::before {
+  content: attr(data-num);
+  position: absolute;
+  top: clamp(1.5rem, 4vh, 3rem);
+  right: clamp(1.5rem, 3vw, 2.5rem);
+  font-family: var(--fonte-display);
+  font-size: clamp(5rem, 14vw, 11rem);
+  font-weight: var(--peso-bold);
+  color: rgba(200, 160, 56, 0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.universo__painel:hover {
+  background-color: var(--azul-profundo);
 }
 
 .universo__sublabel {
+  font-family: var(--fonte-sans);
   font-size: var(--txt-label);
-  color: var(--dourado);
+  letter-spacing: 0.14em;
+  margin-bottom: var(--sp-3);
+  background: var(--gradiente-dourado);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.universo__card-titulo {
-  font-size: var(--txt-h2);
+.universo__painel-titulo {
+  font-family: var(--fonte-display);
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  font-weight: var(--peso-bold);
   line-height: var(--lh-heading);
   color: var(--off-white);
+  margin-bottom: var(--sp-4);
 }
 
-.universo__card-titulo em {
+.universo__painel-titulo em {
   font-style: italic;
+  font-weight: var(--peso-light);
 }
 
-.universo__card-frase {
+.universo__painel-frase {
   font-size: var(--txt-small);
   font-weight: var(--peso-light);
   color: var(--texto-suave);
   line-height: var(--lh-body);
+  max-width: 26ch;
 }
 
-/* Bloco dourado — quebra o ritmo */
-.universo__destaque {
-  background: linear-gradient(135deg,
-    #d4b45c 0%,
-    #c9a86a 18%,
-    #b09040 35%,
-    #e8d080 50%,
-    #b09040 65%,
-    #c9a86a 82%,
-    #d4b45c 100%
+/* Painel dourado de fechamento */
+.universo__painel--dourado {
+  flex: 0 0 clamp(280px, 32vw, 480px);
+  background: linear-gradient(160deg,
+    #c8a038 0%,
+    #e0c060 25%,
+    #a07e1e 50%,
+    #e0c060 75%,
+    #c8a038 100%
   );
-  padding: var(--sp-8) var(--sp-6);
-  display: flex;
-  align-items: center;
   justify-content: center;
-  min-height: 180px;
-  position: relative;
-  overflow: hidden;
+  align-items: center;
+  border-right: none;
+  transition: none;
 }
 
-/* Shine sweep — faixa diagonal (~30°) apenas na entrada do hover */
-.universo__destaque::before {
-  content: '';
-  position: absolute;
-  inset-block: 0;
-  left: -50%;
-  width: 40%;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(255, 255, 255, 0.12) 50%,
-    transparent 100%
+.universo__painel--dourado::before {
+  display: none; /* sem número decorativo no painel dourado */
+}
+
+.universo__painel--dourado:hover {
+  background: linear-gradient(160deg,
+    #c8a038 0%,
+    #e0c060 25%,
+    #a07e1e 50%,
+    #e0c060 75%,
+    #c8a038 100%
   );
-  transform: skewX(-40deg);
-  pointer-events: none;
 }
 
-.universo__destaque:hover::before {
-  left: 160%;
-  transition: left 2.2s var(--ease-out);
-}
-
-.universo__destaque-texto {
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: var(--peso-regular);
+.universo__painel-fechamento {
+  font-family: var(--fonte-display);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: var(--peso-light);
+  font-style: italic;
   line-height: var(--lh-heading);
   color: var(--azul-abissal);
   text-align: center;
+  padding-inline: var(--sp-6);
+}
+
+
+/* --------------------------------------------------------
+   UNIVERSO — Mobile (≤ 767px)
+   Scroll-snap horizontal nativo; JS não interfere.
+-------------------------------------------------------- */
+@media (max-width: 767px) {
+
+  .universo {
+    height: auto !important; /* cancela o height que o JS aplica */
+  }
+
+  .universo__sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .universo__hud {
+    position: static;
+    padding: var(--sp-6) var(--margem-lateral) var(--sp-3);
+  }
+
+  /* Oculta barra de progresso no mobile — sem sentido sem JS scroll */
+  .universo__progresso {
+    display: none;
+  }
+
+  .universo__track {
+    height: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    will-change: auto;
+  }
+
+  .universo__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .universo__painel {
+    flex: 0 0 85vw;
+    height: 70vh;
+    min-height: 400px;
+    scroll-snap-align: start;
+  }
+
+  .universo__painel--dourado {
+    flex: 0 0 85vw;
+    height: 50vh;
+    min-height: 280px;
+  }
+
+  .universo__painel::before {
+    font-size: clamp(4rem, 18vw, 7rem);
+  }
+}
+
+
+/* --------------------------------------------------------
+   UNIVERSO — prefers-reduced-motion
+   Fallback: grid estático, sem scroll horizontal.
+-------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+
+  .universo {
+    height: auto !important;
+  }
+
+  .universo__sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .universo__hud {
+    position: static;
+    padding: var(--sp-6) var(--margem-lateral) var(--sp-3);
+  }
+
+  .universo__progresso {
+    display: none;
+  }
+
+  .universo__track {
+    flex-wrap: wrap;
+    height: auto;
+    will-change: auto;
+    transform: none !important;
+    padding: var(--sp-4) var(--margem-lateral);
+    gap: var(--sp-3);
+  }
+
+  .universo__painel {
+    flex: 0 0 calc(50% - var(--sp-3) / 2);
+    height: auto;
+    min-height: 320px;
+  }
+
+  .universo__painel--dourado {
+    flex: 0 0 100%;
+    height: auto;
+    min-height: 180px;
+  }
 }
 
 

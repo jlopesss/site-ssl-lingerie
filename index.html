@@ -477,53 +477,81 @@
     </section>
 
     <!-- ===================================================
-         UNIVERSO SSL
-         Grid 2×2: três pilares + bloco dourado destaque
+         UNIVERSO SSL — Vitrine horizontal (Fase 8)
+         Desktop: scroll vertical → painéis deslizam na horizontal
+         Mobile: scroll-snap horizontal nativo
     ==================================================== -->
     <section
       id="universo"
       class="universo"
       aria-labelledby="universo-label"
     >
-      <header class="universo__header reveal">
-        <p class="universo__label" id="universo-label">O UNIVERSO SSL</p>
-      </header>
+      <!-- Viewport sticky — fica preso ao topo durante o scroll -->
+      <div class="universo__sticky">
 
-      <div class="universo__grid">
-
-        <article class="universo__card reveal reveal-delay-1" aria-labelledby="pilar-lingerie-titulo">
-          <p class="universo__sublabel">O ÍNTIMO</p>
-          <h3 class="universo__card-titulo" id="pilar-lingerie-titulo">
-            <em>Lingerie</em>
-          </h3>
-          <p class="universo__card-frase">A primeira camada da sua confiança.</p>
-        </article>
-
-        <article class="universo__card reveal reveal-delay-2" aria-labelledby="pilar-moda-titulo">
-          <p class="universo__sublabel">O OLHAR</p>
-          <h3 class="universo__card-titulo" id="pilar-moda-titulo">
-            <em>Moda</em>
-          </h3>
-          <p class="universo__card-frase">O que o mundo vê quando você passa.</p>
-        </article>
-
-        <article class="universo__card reveal reveal-delay-3" aria-labelledby="pilar-essence-titulo">
-          <p class="universo__sublabel">O DETALHE</p>
-          <h3 class="universo__card-titulo" id="pilar-essence-titulo">
-            <em>Essence</em>
-          </h3>
-          <p class="universo__card-frase">Acessórios e detalhes que completam você.</p>
-        </article>
-
-        <!-- Bloco dourado — quebra o ritmo do grid -->
-        <div class="universo__destaque reveal reveal-delay-4" aria-label="Tudo que te veste">
-          <p class="universo__destaque-texto">
-            Tudo que<br>
-            te veste.
-          </p>
+        <!-- HUD: label + barra de progresso -->
+        <div class="universo__hud">
+          <p class="universo__label" id="universo-label">O UNIVERSO SSL</p>
+          <div class="universo__progresso" aria-hidden="true">
+            <div class="universo__progresso-fill"></div>
+          </div>
         </div>
 
-      </div>
+        <!-- Trilho deslizante -->
+        <div class="universo__track">
+
+          <article class="universo__painel" data-num="01" aria-labelledby="painel-lingerie-titulo">
+            <p class="universo__sublabel">O ÍNTIMO</p>
+            <h3 class="universo__painel-titulo" id="painel-lingerie-titulo">
+              <em>Lingerie</em>
+            </h3>
+            <p class="universo__painel-frase">A primeira camada<br>da sua confiança.</p>
+          </article>
+
+          <article class="universo__painel" data-num="02" aria-labelledby="painel-moda-titulo">
+            <p class="universo__sublabel">O DIA A DIA</p>
+            <h3 class="universo__painel-titulo" id="painel-moda-titulo">
+              <em>Moda</em>
+            </h3>
+            <p class="universo__painel-frase">Peças que vestem a sua<br>rotina com elegância.</p>
+          </article>
+
+          <article class="universo__painel" data-num="03" aria-labelledby="painel-praia-titulo">
+            <p class="universo__sublabel">O VERÃO</p>
+            <h3 class="universo__painel-titulo" id="painel-praia-titulo">
+              <em>Praia</em>
+            </h3>
+            <p class="universo__painel-frase">Do mar ao calçadão,<br>com atitude.</p>
+          </article>
+
+          <article class="universo__painel" data-num="04" aria-labelledby="painel-fitness-titulo">
+            <p class="universo__sublabel">O MOVIMENTO</p>
+            <h3 class="universo__painel-titulo" id="painel-fitness-titulo">
+              <em>Fitness</em>
+            </h3>
+            <p class="universo__painel-frase">Conforto e estilo para<br>o corpo em ação.</p>
+          </article>
+
+          <article class="universo__painel" data-num="05" aria-labelledby="painel-acessorios-titulo">
+            <p class="universo__sublabel">O DETALHE</p>
+            <h3 class="universo__painel-titulo" id="painel-acessorios-titulo">
+              <em>Acessórios</em>
+            </h3>
+            <p class="universo__painel-frase">O toque final<br>que completa você.</p>
+          </article>
+
+          <!-- Painel dourado de fechamento -->
+          <div class="universo__painel universo__painel--dourado" aria-label="Tudo que te veste">
+            <p class="universo__painel-fechamento">
+              Tudo que<br>
+              te veste.
+            </p>
+          </div>
+
+        </div><!-- .universo__track -->
+
+      </div><!-- .universo__sticky -->
+
     </section>
 
     <!-- ===================================================
@@ -701,6 +729,7 @@
   <script src="js/parallax.js" defer></script>
   <script src="js/brilhos.js" defer></script>
   <script src="js/texto-reveal.js" defer></script>
+  <script src="js/universo-scroll.js" defer></script>
 
 </body>
 </html>
