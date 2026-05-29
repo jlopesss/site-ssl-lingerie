@@ -96,6 +96,24 @@
             height="336"
           >
         </picture>
+        <!-- Anel animado: gradiente dourado percorre o círculo (Fase 4, controlado por JS) -->
+        <svg class="header__logo-ring" viewBox="0 0 500 278" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <!-- Glow difuso: âmbar largo (r=138 → raio medido do anel dourado da logo) -->
+          <circle class="anel-glow" cx="240" cy="139" r="134"
+            fill="none" stroke="#c9a86a"
+            stroke-width="6" stroke-linecap="butt"
+            stroke-dasharray="337 505"/>
+          <!-- Camada média: ouro brilhante -->
+          <circle class="anel-meio" cx="240" cy="139" r="134"
+            fill="none" stroke="#e8d070"
+            stroke-width="2.5" stroke-linecap="butt"
+            stroke-dasharray="237 605"/>
+          <!-- Núcleo: creme-ouro vivo -->
+          <circle class="anel-nucleo" cx="240" cy="139" r="134"
+            fill="none" stroke="#faf4e0"
+            stroke-width="1.2" stroke-linecap="butt"
+            stroke-dasharray="137 705"/>
+        </svg>
       </a>
 
       <!-- Menu desktop -->
@@ -676,6 +694,7 @@
   <script src="js/particles.js" defer></script>
   <script src="js/scroll.js" defer></script>
   <script src="js/parallax.js" defer></script>
+  <script src="js/brilhos.js" defer></script>
 
 </body>
 </html>

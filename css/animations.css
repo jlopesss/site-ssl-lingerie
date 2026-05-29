@@ -141,6 +141,85 @@
 }
 
 
+/* --------------------------------------------------------
+   FASE 4 — Anel animado do logo (disparo único: carga + hover)
+-------------------------------------------------------- */
+
+/* Estado inicial: arcos ocultos */
+.header__logo-ring .anel-glow,
+.header__logo-ring .anel-meio,
+.header__logo-ring .anel-nucleo {
+  opacity: 0;
+  stroke-dashoffset: 0;
+}
+
+/* Camadas centralizadas sobre o mesmo trecho do anel.
+   Glow (245u) e Meio (185u) estendem 52u e 22u além do Núcleo (141u)
+   em ambas as extremidades → fade natural nas pontas sem linecap arredondado.
+   Circunferência: 2π × 138 ≈ 867 unidades SVG */
+@keyframes anel-glow-fx {
+  0%   { stroke-dashoffset: -100; opacity: 0.20; }
+  82%  { stroke-dashoffset: -790; opacity: 0.16; }
+  100% { stroke-dashoffset: -942; opacity: 0;    }
+}
+@keyframes anel-meio-fx {
+  0%   { stroke-dashoffset:  -50; opacity: 0.55; }
+  82%  { stroke-dashoffset: -740; opacity: 0.38; }
+  100% { stroke-dashoffset: -892; opacity: 0;    }
+}
+@keyframes anel-nucleo-fx {
+  0%   { stroke-dashoffset:    0; opacity: 0.90; }
+  82%  { stroke-dashoffset: -690; opacity: 0.65; }
+  100% { stroke-dashoffset: -842; opacity: 0;    }
+}
+
+.header__logo-ring.is-animando .anel-glow {
+  animation: anel-glow-fx   2.5s ease-out forwards;
+}
+.header__logo-ring.is-animando .anel-meio {
+  animation: anel-meio-fx   2.5s ease-out forwards;
+}
+.header__logo-ring.is-animando .anel-nucleo {
+  animation: anel-nucleo-fx 2.5s ease-out forwards;
+}
+
+
+/* --------------------------------------------------------
+   FASE 4 — Brilhos refinados
+-------------------------------------------------------- */
+
+/* Glow flash — labels dourados ao entrar na viewport */
+@keyframes glow-label {
+  0%   { filter: none; }
+  25%  { filter: drop-shadow(0 0 10px rgba(200, 160, 56, 0.68)); }
+  100% { filter: none; }
+}
+
+.is-glow {
+  animation: glow-label 1.8s ease-out;
+}
+
+/* Brilho pulsante — filete do manifesto (respiração lenta) */
+@keyframes pulso-filete {
+  0%, 100% { opacity: 0.40; }
+  50%       { opacity: 0.88; }
+}
+
+.manifesto__filete {
+  animation: pulso-filete 4s ease-in-out infinite;
+}
+
+/* Brilho pulsante — ornamento do footer (respiração muito lenta) */
+@keyframes pulso-footer-ornamento {
+  0%, 100% { opacity: 0.20; }
+  50%       { opacity: 0.50; }
+}
+
+.footer__ornamento {
+  animation: pulso-footer-ornamento 6s ease-in-out infinite;
+}
+
+
 /* ============================================================
    PREFERS-REDUCED-MOTION
    Desativa todas as animações para quem preferir.
@@ -194,6 +273,34 @@
     transition: none !important;
     stroke-dashoffset: 0 !important;   /* sobrescreve o inline style do JS */
     stroke-dasharray: none !important; /* restaura linha sólida */
+  }
+
+  /* Fase 4 — desativa anel animado do logo */
+  .header__logo-ring {
+    display: none !important;
+  }
+
+  /* Fase 4 — desativa glow scroll e pulsantes */
+  .is-glow {
+    animation: none !important;
+    filter: none !important;
+  }
+
+  .manifesto__filete {
+    animation: none !important;
+    opacity: 0.6 !important;
+  }
+
+  .footer__ornamento {
+    animation: none !important;
+    opacity: 0.35 !important;
+  }
+
+  .universo__card::before,
+  .universo__destaque::before,
+  .contato__btn-whatsapp::before {
+    transition: none !important;
+    display: none !important;
   }
 
 }

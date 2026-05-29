@@ -108,6 +108,7 @@ body {
   animation: preloader-aparecer 0.8s var(--ease-out) 0.2s forwards;
 }
 
+
 .preloader__marca {
   font-size: var(--txt-label);
   color: var(--dourado);
@@ -144,9 +145,30 @@ body {
   justify-content: space-between;
 }
 
+.header__logo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
 .header__logo-img {
   width: auto;
   height: clamp(27px, 6.2vw, 74px);
+  display: block;
+}
+
+/* SVG overlay — arco dourado animado percorrendo o anel circular.
+   Dimensionado pela altura da imagem (mesma que .header__logo-img)
+   e centrado sobre ela. Evita letterbox e garante alinhamento perfeito. */
+.header__logo-ring {
+  position: absolute;
+  height: clamp(27px, 6.2vw, 74px);
+  width: calc(clamp(27px, 6.2vw, 74px) * 500 / 278);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  overflow: visible;
 }
 
 /* Links — ocultos em mobile, visíveis no desktop */
@@ -792,7 +814,31 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
+  position: relative;
+  overflow: hidden;
   transition: background-color var(--t-media), box-shadow var(--t-media);
+}
+
+/* Shine sweep — faixa diagonal (~30°) apenas na entrada do hover */
+.universo__card::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: -50%;
+  width: 40%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  transform: skewX(-40deg);
+  pointer-events: none;
+}
+
+.universo__card:hover::before {
+  left: 160%;
+  transition: left 2.2s var(--ease-out);
 }
 
 .universo__card:hover {
@@ -837,6 +883,30 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine sweep — faixa diagonal (~30°) apenas na entrada do hover */
+.universo__destaque::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: -50%;
+  width: 40%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  transform: skewX(-40deg);
+  pointer-events: none;
+}
+
+.universo__destaque:hover::before {
+  left: 160%;
+  transition: left 2.2s var(--ease-out);
 }
 
 .universo__destaque-texto {
@@ -942,9 +1012,33 @@ body {
   font-size: var(--txt-label);
   font-weight: var(--peso-semi);
   color: var(--dourado-claro); /* mantido para o ícone SVG fill="currentColor" */
+  position: relative;
+  overflow: hidden;
   transition:
     background-color var(--t-media),
     box-shadow var(--t-media);
+}
+
+/* Shine sweep — faixa diagonal (~30°) apenas na entrada do hover */
+.contato__btn-whatsapp::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: -50%;
+  width: 40%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 50%,
+    transparent 100%
+  );
+  transform: skewX(-40deg);
+  pointer-events: none;
+}
+
+.contato__btn-whatsapp:hover::before {
+  left: 160%;
+  transition: left 2.2s var(--ease-out);
 }
 
 /* Gradiente só no texto; ícone SVG herda color do botão pai */
@@ -1350,12 +1444,12 @@ body {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 35% at 50%  18%,  rgba(200, 160,  56, 0.07)  0%, transparent 70%),
+    radial-gradient(ellipse 62% 40% at 50%  20%,  rgba(200, 160,  56, 0.11)  0%, transparent 72%),
     radial-gradient(ellipse 70% 50% at 100% 100%, rgba(  4,  10,  24, 0.55)  0%, transparent 55%),
     radial-gradient(ellipse 60% 40% at 0%   100%, rgba(  4,  10,  24, 0.45)  0%, transparent 55%);
 }
 
-/* Manifesto: vinheta azul alto-direito + toque dourado baixo-esquerdo */
+/* Manifesto: vinheta azul alto-direito + luz dourada centrada atrás do texto */
 .manifesto::before {
   content: '';
   position: absolute;
@@ -1364,6 +1458,7 @@ body {
   pointer-events: none;
   background:
     radial-gradient(ellipse 60% 40% at 85% 15%, rgba( 22,  38,  79, 0.55)  0%, transparent 65%),
+    radial-gradient(ellipse 54% 42% at 50% 52%, rgba(200, 160,  56, 0.065) 0%, transparent 70%),
     radial-gradient(ellipse 50% 35% at 10% 85%, rgba(200, 160,  56, 0.045) 0%, transparent 60%);
 }
 
