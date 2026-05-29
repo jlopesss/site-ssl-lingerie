@@ -1743,3 +1743,41 @@ body {
   opacity: 0.028;
   mix-blend-mode: overlay;
 }
+
+
+/* --------------------------------------------------------
+   CURSOR CUSTOMIZADO — sutiã minimalista dourado
+   Apenas em dispositivos com mouse (hover: hover + pointer: fine).
+   Fallback automático: cursores nativos preservados via vírgula.
+-------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+
+  /* Cursor padrão em todo o documento */
+  html {
+    cursor: url('../assets/icons/cursor-lingerie.png') 16 16, auto;
+  }
+
+  /* Mantém o cursor customizado sobre links e botões
+     (sem isso, UA stylesheet sobrescreve com 'pointer') */
+  a,
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"],
+  label[for],
+  select,
+  summary,
+  .contato__btn-whatsapp,
+  .contato__link-instagram {
+    cursor: url('../assets/icons/cursor-lingerie.png') 16 16, pointer;
+  }
+
+  /* Campos de texto mantêm cursor de escrita do sistema */
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  textarea {
+    cursor: text;
+  }
+}
