@@ -51,7 +51,6 @@
   }, { passive: true });
 
   window.addEventListener('resize', function () {
-    heroBcr = null; // força recálculo no próximo mousemove
     sslBcr  = null;
   }, { passive: true });
 

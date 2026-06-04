@@ -60,8 +60,6 @@ body {
 .filosofia__frase,
 .drama__titulo,
 .marca__titulo,
-.universo__card-titulo,
-.universo__destaque-texto,
 .contato__endereco {
   font-family: var(--fonte-display);
   font-weight: var(--peso-light);
@@ -337,13 +335,6 @@ body {
   pointer-events: none;
 }
 
-/* CSS legados das linhas SVG (agora removidas do HTML — manter até Fase 10) */
-.hero__arte-svg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.hero__svg-linhas { width: 100%; height: 100%; display: block; }
-.svg-linha {
-  stroke: var(--dourado); opacity: 0.35; fill: none;
-  stroke-dasharray: 2000; stroke-dashoffset: 2000;
-}
 
 .hero__content {
   position: relative;
@@ -861,10 +852,9 @@ body {
   background-color: var(--azul-abissal);
   position: relative;
   overflow: hidden;
-  transition: background-color var(--t-media);
 }
 
-/* Número decorativo em background */
+/* Número decorativo — capa de revista: entre a foto e o texto */
 .universo__painel::before {
   content: attr(data-num);
   position: absolute;
@@ -873,14 +863,11 @@ body {
   font-family: var(--fonte-display);
   font-size: clamp(5rem, 14vw, 11rem);
   font-weight: var(--peso-bold);
-  color: rgba(200, 160, 56, 0.06);
+  color: rgba(240, 223, 152, 0.16);
   line-height: 1;
   pointer-events: none;
   user-select: none;
-}
-
-.universo__painel:hover {
-  background-color: var(--azul-profundo);
+  z-index: 1;
 }
 
 .universo__sublabel {
@@ -909,23 +896,96 @@ body {
 }
 
 .universo__painel-frase {
-  font-size: var(--txt-small);
+  font-size: var(--txt-body);
   font-weight: var(--peso-light);
   color: var(--texto-suave);
   line-height: var(--lh-body);
   max-width: 26ch;
 }
 
-/* Painel dourado de fechamento */
+/* --------------------------------------------------------
+   PAINÉIS — foto-fundo (capa de revista)
+-------------------------------------------------------- */
+
+.universo__painel-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--azul-noite);
+}
+
+.universo__painel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.95) saturate(1.0) contrast(1.02);
+  transition: transform 1.2s var(--ease-out), filter 0.6s var(--ease-out);
+  will-change: transform;
+  display: block;
+}
+
+/* Tom azul-marca: uniformiza fotos de fotógrafos diferentes sem alterar luminância */
+.universo__painel-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 27, 62, 0.14);
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+
+/* Overlay gradient: base escura para o texto, topo translúcido */
+.universo__painel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(7, 15, 36, 0.78)  0%,
+    rgba(7, 15, 36, 0.52) 35%,
+    rgba(7, 15, 36, 0.22) 65%,
+    rgba(7, 15, 36, 0.08) 100%
+  );
+  pointer-events: none;
+}
+
+/* Texto: acima da foto (z-index: 0), do número (z-index: 1) */
+.universo__painel > .universo__sublabel,
+.universo__painel > .universo__painel-titulo,
+.universo__painel > .universo__painel-frase {
+  position: relative;
+  z-index: 2;
+}
+
+/* Painel lingerie — sem overlay (foto já tem contraste suficiente) */
+.universo__painel:first-child .universo__painel-overlay {
+  display: none;
+}
+
+/* Painel acessórios — overlay mais leve (foto com fundo claro) */
+.universo__painel:nth-child(5) .universo__painel-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(7, 15, 36, 0.55)  0%,
+    rgba(7, 15, 36, 0.32) 35%,
+    rgba(7, 15, 36, 0.10) 65%,
+    rgba(7, 15, 36, 0.02) 100%
+  );
+}
+
+/* Hover: zoom suave na imagem (desktop only) */
+.universo__painel:hover .universo__painel-img {
+  transform: scale(1.04);
+  filter: brightness(0.88) saturate(0.95) contrast(1.05);
+}
+
+/* Painel de fechamento — mesmo fundo escuro dos outros painéis */
 .universo__painel--dourado {
   flex: 0 0 clamp(280px, 32vw, 480px);
-  background: linear-gradient(160deg,
-    #c8a038 0%,
-    #e0c060 25%,
-    #a07e1e 50%,
-    #e0c060 75%,
-    #c8a038 100%
-  );
+  background-color: var(--azul-abissal);
   justify-content: center;
   align-items: center;
   border-right: none;
@@ -933,17 +993,7 @@ body {
 }
 
 .universo__painel--dourado::before {
-  display: none; /* sem número decorativo no painel dourado */
-}
-
-.universo__painel--dourado:hover {
-  background: linear-gradient(160deg,
-    #c8a038 0%,
-    #e0c060 25%,
-    #a07e1e 50%,
-    #e0c060 75%,
-    #c8a038 100%
-  );
+  display: none;
 }
 
 .universo__painel-fechamento {
@@ -952,9 +1002,11 @@ body {
   font-weight: var(--peso-light);
   font-style: italic;
   line-height: var(--lh-heading);
-  color: var(--azul-abissal);
+  color: var(--off-white);
   text-align: center;
   padding-inline: var(--sp-6);
+  position: relative;
+  z-index: 1;
 }
 
 
@@ -1013,6 +1065,17 @@ body {
   .universo__painel::before {
     font-size: clamp(4rem, 18vw, 7rem);
   }
+
+  /* Overlay mais denso no mobile: painel quase tela cheia, texto precisa de mais contraste */
+  .universo__painel-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(7, 15, 36, 0.97)  0%,
+      rgba(7, 15, 36, 0.75) 35%,
+      rgba(7, 15, 36, 0.48) 65%,
+      rgba(7, 15, 36, 0.28) 100%
+    );
+  }
 }
 
 
@@ -1061,26 +1124,68 @@ body {
     height: auto;
     min-height: 180px;
   }
+
+  .universo__painel-img {
+    transition: none !important;
+  }
+
+  .universo__painel:hover .universo__painel-img {
+    transform: none !important;
+    filter: brightness(0.78) saturate(0.85) contrast(1.05) !important;
+  }
 }
 
 
 /* --------------------------------------------------------
-   CONTATO — ÚNICA seção clara (off-white)
+   CONTATO — fundo ouro polido com bandas, interferência e grão
 -------------------------------------------------------- */
 .contato {
-  background: linear-gradient(135deg,
-    #d4b45c  0%,
-    #c9a86a 18%,
-    #b09040 35%,
-    #e8d080 50%,
-    #b09040 65%,
-    #c9a86a 82%,
-    #d4b45c 100%
-  );
+  background:
+    /* 1 — Highlight especular off-center: reflexo de luz ambiente */
+    radial-gradient(ellipse 70% 55% at 30% 25%,
+      rgba(255, 244, 196, 0.65)  0%,
+      transparent                45%
+    ),
+    /* 2 — Vinheta: bordas mais quentes/profundas para tridimensionalidade */
+    radial-gradient(ellipse 90% 80% at 50% 50%,
+      transparent               38%,
+      rgba(140, 90, 28, 0.18)  100%
+    ),
+    /* 3 — Interferência tonal: ângulo cruzado adiciona volume */
+    linear-gradient(38deg,
+      rgba(248, 238, 204, 0.30)  0%,
+      rgba(180, 128,  28, 0.45) 40%,
+      rgba(248, 238, 204, 0.20) 70%,
+      rgba(154, 108,  24, 0.38) 100%
+    ),
+    /* 4 — Base: highlights champanhe (sem amarelo) + âmbar rico nos meios */
+    linear-gradient(135deg,
+      #f8eecc  0%,
+      #d4a030 18%,
+      #9a6c18 36%,
+      #d4a030 52%,
+      #9a6c18 66%,
+      #d4a030 82%,
+      #f8eecc 100%
+    );
   color: var(--texto-escuro);
   padding-block: var(--espaco-section);
   position: relative;
   overflow: hidden;
+}
+
+/* Grão fino: textura de metal escovado via feTurbulence — abaixo do conteúdo */
+.contato::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 192px 192px;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
 }
 
 
@@ -1098,9 +1203,9 @@ body {
 }
 
 .svg-org {
-  stroke: var(--dourado-escuro);
+  stroke: #6a4a18;
   fill: none;
-  opacity: 0.16;
+  opacity: 0.11;
 }
 
 .contato__content {
@@ -1390,21 +1495,6 @@ body {
    ARTE SVG DECORATIVA — elementos distribuídos pelo site
 ============================================================ */
 
-/* --- Manifesto: curvas animadas em camada sobre o fundo --- */
-.manifesto__arte-linhas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.manifesto__svg-curvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
 /* --- Filosofia: ornamento SVG (filete com diamante) --- */
 .filosofia__ornamento {
   display: flex;
@@ -1557,10 +1647,6 @@ body {
   .filosofia__foto {
     aspect-ratio: auto;
     min-height: 520px;
-  }
-
-  .universo__grid {
-    grid-template-columns: 1fr 1fr;
   }
 
   .contato__acoes {

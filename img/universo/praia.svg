@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1430"/>
+      <stop offset="100%" stop-color="#16264f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1200" fill="url(#bg)"/>
+  <text x="400" y="620" font-family="Georgia, serif" font-style="italic"
+    font-size="72" fill="#c8a038" fill-opacity="0.4"
+    text-anchor="middle" dominant-baseline="middle">Praia</text>
+</svg>
