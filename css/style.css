@@ -1290,7 +1290,7 @@ body {
 .contato__acoes {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--sp-4);
 }
 
@@ -1377,7 +1377,7 @@ body {
 }
 
 .contato__link-instagram:hover {
-  color: var(--dourado-escuro);
+  color: #6a4a18;
 }
 
 .contato__link-instagram:hover::after {
@@ -1400,7 +1400,7 @@ body {
 }
 
 .contato__telefone a:hover {
-  color: var(--dourado-escuro);
+  color: #6a4a18;
 }
 
 
@@ -1475,9 +1475,13 @@ body {
   margin-top: var(--sp-2);
 }
 
+.footer__credit {
+  margin-block: calc(var(--sp-4) * -0.75);
+}
+
 .footer__credit a {
   font-family: var(--fonte-sans);
-  font-size: var(--txt-small);
+  font-size: var(--txt-label);
   letter-spacing: var(--ls-nav);
   color: var(--texto-suave);
   opacity: 0.5;
