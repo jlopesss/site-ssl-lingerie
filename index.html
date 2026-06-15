@@ -40,6 +40,9 @@
   }
   </script>
 
+  <!-- Preload da logo do preloader — elimina 428ms de resource load delay no LCP -->
+  <link rel="preload" href="assets/logo/ssl-logo-oficial.webp" as="image" fetchpriority="high">
+
   <!-- Preconnect para Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -23,9 +23,10 @@
     });
   };
 
-  inicializarTodas();
+  // Cede a thread antes de medir os paths (getTotalLength causa reflow)
+  setTimeout(inicializarTodas, 0);
 
-  // Hero: dispara em 1050ms — coincide com início do fade-out do preloader
+  // Hero: dispara em 1050ms — com o preloader reduzido, ainda há folga suficiente
   const heroSvg = document.querySelector('.hero__svg-linhas');
   if (heroSvg) setTimeout(() => desenhar(heroSvg, 0), 1050);
 

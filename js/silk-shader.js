@@ -56,6 +56,8 @@ function norm2(v) {
 (function () {
   'use strict';
 
+  function init() {
+
   // ── Pré-condições ──────────────────────────────────────────────
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -255,5 +257,14 @@ void main() {
   }, { threshold: 0.01 }).observe(hero);
 
   hero.dataset.silk = '1';
+
+  } // fim init
+
+  // Compilação GLSL é pesada — cede a thread antes de inicializar o WebGL
+  if (typeof requestIdleCallback !== 'undefined') {
+    requestIdleCallback(init, { timeout: 2000 });
+  } else {
+    setTimeout(init, 0);
+  }
 
 })();

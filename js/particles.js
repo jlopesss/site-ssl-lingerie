@@ -5,6 +5,8 @@
 
 (() => {
 
+  function init() {
+
   const canvas = document.getElementById('drama-canvas');
   if (!canvas) return;
 
@@ -214,6 +216,15 @@
   /* ---- prefers-reduced-motion: frame estático ---- */
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     desenhar();
+  }
+
+  } // fim init
+
+  // Executa após o LCP — cede a thread antes de inicializar o canvas
+  if (typeof requestIdleCallback !== 'undefined') {
+    requestIdleCallback(init, { timeout: 2000 });
+  } else {
+    setTimeout(init, 0);
   }
 
 })();
