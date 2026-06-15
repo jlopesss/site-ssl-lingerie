@@ -85,10 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300);
   };
 
+  // Dispara com timeout máximo de 600ms a partir do DOMContentLoaded.
+  // NÃO espera window.load — isso bloquearia até todas as imagens carregarem (~35s no mobile).
+  // Se window.load vier antes dos 600ms, cancela o fallback e dispara imediatamente.
+  const MAX_PRELOADER_MS = 600;
   if (document.readyState === 'complete') {
-    setTimeout(ocultarPreloader, 1200);
+    setTimeout(ocultarPreloader, 300);
   } else {
-    window.addEventListener('load', () => setTimeout(ocultarPreloader, 1200));
+    const maxTimeout = setTimeout(ocultarPreloader, MAX_PRELOADER_MS);
+    window.addEventListener('load', () => {
+      clearTimeout(maxTimeout);
+      setTimeout(ocultarPreloader, 300);
+    }, { once: true });
   }
 
 

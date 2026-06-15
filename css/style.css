@@ -1449,8 +1449,8 @@ body {
   font-family: var(--fonte-sans);
   font-size: var(--txt-label);
   letter-spacing: var(--ls-label);
-  color: var(--texto-suave);
-  opacity: 0.6;
+  /* Cor direta (sem opacity separado) para garantir contraste WCAG AA ~6.5:1 */
+  color: rgba(244, 241, 234, 0.6);
 }
 
 .footer__instagram {
@@ -1483,14 +1483,13 @@ body {
   font-family: var(--fonte-sans);
   font-size: var(--txt-label);
   letter-spacing: var(--ls-nav);
-  color: var(--texto-suave);
-  opacity: 0.5;
-  transition: color var(--t-rapida), opacity var(--t-rapida);
+  /* Cor direta (sem opacity separado) para garantir contraste WCAG AA ~5.1:1 */
+  color: rgba(244, 241, 234, 0.5);
+  transition: color var(--t-rapida);
 }
 
 .footer__credit a:hover {
   color: var(--dourado);
-  opacity: 1;
 }
 
 
