@@ -260,11 +260,15 @@ void main() {
 
   } // fim init
 
-  // Compilação GLSL é pesada — cede a thread antes de inicializar o WebGL
-  if (typeof requestIdleCallback !== 'undefined') {
-    requestIdleCallback(init, { timeout: 2000 });
-  } else {
-    setTimeout(init, 0);
-  }
+  // Garante mínimo de 600ms antes de compilar shaders GLSL.
+  // No desktop (sem throttle de rede) o browser fica idle quase imediatamente —
+  // o setTimeout externo impede que a compilação pesada ocorra durante a janela de LCP.
+  setTimeout(function () {
+    if (typeof requestIdleCallback !== 'undefined') {
+      requestIdleCallback(init, { timeout: 1000 });
+    } else {
+      init();
+    }
+  }, 600);
 
 })();

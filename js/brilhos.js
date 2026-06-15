@@ -10,6 +10,9 @@
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+  // Adia 600ms para não competir com LCP na main thread.
+  // Seguro: o transitionend do preloader (anel) só dispara em ~1.3s.
+  setTimeout(function () {
 
   /* ── 1. Glow dos labels ao entrar na viewport ─────────────── */
 
@@ -74,5 +77,7 @@
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     logoEl.addEventListener('mouseenter', disparar);
   }
+
+  }, 600); // fim setTimeout
 
 })();

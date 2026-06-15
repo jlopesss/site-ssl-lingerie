@@ -220,11 +220,13 @@
 
   } // fim init
 
-  // Executa após o LCP — cede a thread antes de inicializar o canvas
-  if (typeof requestIdleCallback !== 'undefined') {
-    requestIdleCallback(init, { timeout: 2000 });
-  } else {
-    setTimeout(init, 0);
-  }
+  // Garante mínimo de 600ms antes de inicializar o canvas de partículas.
+  setTimeout(function () {
+    if (typeof requestIdleCallback !== 'undefined') {
+      requestIdleCallback(init, { timeout: 1000 });
+    } else {
+      init();
+    }
+  }, 600);
 
 })();

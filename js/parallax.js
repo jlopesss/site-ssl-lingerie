@@ -14,6 +14,9 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
+  // Feature desktop-only — adia 600ms para não competir com LCP na main thread
+  setTimeout(function () {
+
   var hero     = document.getElementById('hero');
   var wordmark = document.querySelector('.hero__wordmark');
   var ssl      = document.querySelector('.hero__wordmark-ssl');
@@ -103,5 +106,7 @@
       cGlow = 0;
     }
   }, { threshold: 0.1 }).observe(hero);
+
+  }, 600); // fim setTimeout
 
 })();
